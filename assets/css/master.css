@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100;200;400;500;600;700;800;900&family=Kanit:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --primary: #5465ff;
+  --secondary: #bfd7ff;
+  --error: #ff5733;
+  --title: "Kanit";
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Geologica", serif;
+}
+
+/* Global Variables */
+
+.title {
+  font-family: var(--title);
+  font-weight: bolder;
+  font-size: 2rem;
+}
+.btn {
+  border: none;
+  border-radius: 9999px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.4s all ease;
+}
+.fill-btn {
+  background-color: var(--primary) !important;
+  color: white;
+}
+.outline-btn {
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary) !important;
+}
+.outline-btn:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.card {
+  background-color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 40px 5px;
+  width: 80%;
+  margin: auto;
+}
+.line {
+  background-color: #d4d4d4;
+}
+
+.detail-row {
+  width: 90%;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  align-items: center;
+}
+.detail-row h5 {
+  font-weight: 400;
+}
+.detail-row .inputs {
+  font-size: 0.9rem;
+  border: 1px solid #acacac;
+  border-radius: 20px;
+  padding: 7.5px 20px;
+  width: 100%;
+}
+
+.error-text {
+  color: var(--error);
+  text-align: center;
+  font-size: small;
+}
+.error-input {
+  border: 1px solid var(--error) !important;
+}
+.error-input i {
+  color: var(--error) !important;
+}
+.error-input div {
+  background-color: var(--error) !important;
+}
+.error-input input::placeholder {
+  color: var(--error);
+}
+.wrong-otp input {
+  border: 1px solid var(--error) !important;
+  background-color: rgb(255, 199, 199);
+}
+
+/* Navigation Bar */
+.remove-ml-300 {
+  margin-left: 0px !important;
+}
+.open {
+  width: 90px !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
+.open #open-close-btn {
+  transform: rotate(180deg) translateX(-10px);
+}
+.open #navLinks span {
+  display: none;
+}
+.open #profile-sec {
+  background-color: white;
+  padding: 0;
+  width: auto;
+}
+.open #profile-sec .name-email,
+.open #profile-sec .three-dot-icon {
+  display: none;
+}
+.open #profile-sec .user-icon {
+  background-color: #bfd7ff !important;
+}
+
+.active {
+  background-color: #5465ff !important;
+  color: white !important;
+}
+
+/* dashboard  */

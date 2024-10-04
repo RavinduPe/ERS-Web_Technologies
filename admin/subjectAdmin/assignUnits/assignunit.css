@@ -1,0 +1,108 @@
+/* Reset some default styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Page header styles */
+h1 {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+/* Form container styles */
+#assignment-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+/* Form label styles */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Select input styles */
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Add Unit and Remove Unit button styles */
+#add-unit, .remove-unit {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* Add Unit button hover effect */
+#add-unit:hover {
+    background-color: #555;
+}
+
+/* Unit assignment container styles */
+#unit-assignment {
+    margin-top: 20px;
+}
+
+/* Unit dropdown container styles */
+.unit-dropdown {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Style for the form submission button */
+.form-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Form submission button hover effect */
+.form-btn:hover {
+    background-color: #555;
+}
+
+/* Add your custom CSS styles here */
+.exam-info {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+h4 {
+    margin: 0;
+}
+
+.error-message {
+    background-color: #ffcccc;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    background-color: #ccffcc;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 10px;
+    margin-bottom: 10px;
+}

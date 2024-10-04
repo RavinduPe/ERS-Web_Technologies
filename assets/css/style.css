@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100;200;400;500;600;700;800;900&family=Kanit:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --primary: #5465ff;
+  --secondary: #bfd7ff;
+  --error: #ff5733;
+  --title: "Kanit";
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Geologica", serif;
+  font-weight: 200;
+}
+
+.card {
+  background-color: white;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.3);
+  padding: 40px 5px;
+  height: auto;
+}
+.btn {
+  border: none;
+  border-radius: 9999px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.4s all ease;
+}
+.fill-btn {
+  background-color: var(--primary) !important;
+  color: white;
+}
+.outline-btn {
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary) !important;
+}
+.outline-btn:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.login-bg {
+  height: 100vh;
+  background-image: url("../img/login_bg.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(4px);
+  z-index: -1;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.error-text {
+  color: var(--error);
+  text-align: center;
+  font-size: small;
+}
+.error-input {
+  border: 1px solid var(--error) !important;
+}
+.error-input i {
+  color: var(--error) !important;
+}
+.error-input div {
+  background-color: var(--error) !important;
+}
+.error-input input::placeholder {
+  color: var(--error);
+}
+.wrong-otp input {
+  border: 1px solid var(--error) !important;
+  background-color: rgb(255, 199, 199);
+}
+
+.text-input {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid #acacac;
+  border-radius: 999px;
+  padding: 5px 15px;
+  margin: 5px 0;
+}
+.text-input i {
+  color: var(--primary);
+}
+.text-input div {
+  height: 90%;
+  width: 1px;
+  background-color: #999;
+}
+.text-input input {
+  outline: none;
+}
+
+.otp-input-box {
+  height: 35px;
+  width: 35px;
+  /* border: ; */
+  text-align: center;
+  background-color: #bfd7ff;
+  border-radius: 5px;
+  outline: none;
+}
+.otp-input-box::-webkit-outer-spin-button,
+.otp-input-box::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.active-resend {
+  color: var(--primary) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.line {
+  background-color: #d4d4d4;
+}
+
+#student .detail-row {
+  width: 90%;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  /* margin: 20px auto; */
+}
+#student .detail-row h5 {
+  font-weight: 400;
+}
+#student .detail-row .inputs {
+  font-size: 0.9rem;
+  border: 1px solid #acacac;
+  border-radius: 20px;
+  padding: 7.5px 20px;
+  width: 100%;
+}
+
+#exam .detail-row {
+  width: 90%;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  /* margin: 20px auto; */
+}
+#exam .detail-row h5 {
+  font-weight: 400;
+}
+#exam .detail-row .inputs {
+  font-size: 0.9rem;
+  border: 1px solid #acacac;
+  border-radius: 20px;
+  padding: 7.5px 20px;
+  width: 100%;
+}
