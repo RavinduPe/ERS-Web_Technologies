@@ -2,11 +2,8 @@
 
 <h3>Team Details</h3>
 <ul>
-<li>2020/CSC/051 Mr. R. N. Viththagan</li>
-<li>2020/CSC/007 Mr. C. R. B. Nilwakka</li>
-<li>2020/CSC/074 Mr. P. Saarukesan</li>
-<li>2020/CSC/028 Mr. K. M. I. L. Devapriya</li>
-<li>2020/CSC/046 Mr. R. P. A. U Karunarathna</li>
+<li></li>
+
 </ul>
 
 Then run the apache server and mysql. And then create a database called `ers_fos_db` and import the `ers_fos_db.sql` file.
