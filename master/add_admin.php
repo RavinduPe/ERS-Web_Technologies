@@ -37,14 +37,15 @@ if (isset($_POST['submit'])) {
 
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $role = $_POST['role'];
+            $department = $_POST['department'];
 
             $query = "INSERT INTO admin (email,password,role,name) values('$email','$password','$role','$name')";
             if (!mysqli_query($con, $query)) {
-
+                
                 $msg[0] = "error!";
                 $msg[1] = "warning";
             } else {
-                $query = "INSERT INTO admin_details (email) values('$email')";
+                $query = "INSERT INTO admin_details (email,department) values('$email','$department')";
                 mysqli_query($con, $query);
                 $msg[0] = "Successfully added!";
                 $msg[1] = "done";
@@ -97,6 +98,16 @@ if (isset($_POST['submit'])) {
             <select class="col-span-2 w-full h-full border-2 border-gray-400 rounded-full px-5 outline-none focus:border-blue-500" name="role">
                 <option value="Admin_Subject">Admin_Subject</option>
                 <option value="Admin_Student">Admin_Student</option>
+            </select>
+        </div>
+        <div class="w-full grid grid-cols-3 items-center h-10">
+            <label for="role">Department: </label>
+            <select class="col-span-2 w-full h-full border-2 border-gray-400 rounded-full px-5 outline-none focus:border-blue-500" name="department">
+                <option value="CSC">CSC</option>
+                <option value="PYS">PYS</option>
+                <option value="BOT">BOT</option>
+                <option value="MATH">MATH</option>
+                <option value="PYS">PYS</option>
             </select>
         </div>
         <div class="w-full grid grid-cols-3 items-center h-10 gap-5 mt-5 mb-10">
