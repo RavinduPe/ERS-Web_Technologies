@@ -4,8 +4,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/vendor/autoload.php'); // Include PHPMailer autoloader
-require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/config/connect.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/Group 13/ERS-Web_Technologies/vendor/autoload.php'); // Include PHPMailer autoloader
+require($_SERVER['DOCUMENT_ROOT'] . '/Group 13/ERS-Web_Technologies/config/connect.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

@@ -245,6 +245,7 @@ function setSelected($fieldName, $fieldValue) {
                         if (mysqli_num_rows($unitsQueryResult) == 0) {
                             header("Location: index.php?error=No units were assign to this combination.");
                             exit();
+                            echo "error";
                         }
                     } else {
                         header("Location: index.php?error=Something-went-wrong");
@@ -605,7 +606,7 @@ function setSelected($fieldName, $fieldValue) {
                         <form action="exam_reg.php" method="POST" class="mt-10 h-[350px] flex flex-col justify-around" id="examForm">
                             <input type="hidden" name="step" value="1" />
                             <?php if(isset($_POST['regId'])) {
-                                echo "<input type='hidden' name='regId' value='" . $_POST['regId'] . "' />\n";
+                                echo "<input type='hiddestepn' name='regId' value='" . $_POST['regId'] . "' />\n";
                                 echo "<input type='hidden' name='level' value='" . $_POST['level'] . "' />\n";
                                 echo "<input type='hidden' name='type' value='" . $_POST['type'] . "' />\n";
                             }
