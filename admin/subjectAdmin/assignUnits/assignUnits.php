@@ -8,15 +8,17 @@ if (isset($_POST['unit_subjects'])) {
     $unit_subjects = $_POST['unit_subjects'];
 
     $delete_query = "DELETE FROM `unit_sub_exam`
-                            WHERE exam_unit_id IN (
-                                            SELECT `unit_sub_exam`.`exam_unit_id`
+                        WHERE exam_unit_id IN (
+                            SELECT exam_unit_id FROM (
+                                SELECT `unit_sub_exam`.`exam_unit_id`
                                 FROM `unit_sub_exam`
                                 LEFT JOIN `unit` ON `unit_sub_exam`.`unitId` = `unit`.`unitId`
                                 WHERE unit_sub_exam.exam_id = $exam_id
-                                        AND subject = '$subject'
-                                        AND type = '$type'
+                                AND subject = '$subject'
+                                AND type = '$type'
                                 AND level = '$level'
-                            );";
+                            ) AS temp_table
+                        );";
 
     if (!mysqli_query($con, $delete_query)) {
         $msg['error'] = "Error deleting units: " . mysqli_error($con);
