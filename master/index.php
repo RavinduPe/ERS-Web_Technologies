@@ -87,12 +87,10 @@ require_once("../config/postSender.php");
     <?php
     $examQuery = "select * from exam_reg where status='registration';";
     $result = mysqli_query($con, $examQuery);
+    if(mysqli_num_rows($result) > 0){
     ?>
 
-    <div class="grid grid-cols-2 gap-2 mx-24">
-
     <?php
-    if(mysqli_num_rows($result) > 0){
 
     while($exams = mysqli_fetch_assoc($result)){
     $currentExamId = $exams['exam_id'];
@@ -106,11 +104,29 @@ require_once("../config/postSender.php");
     $numberOfRegisteredStudent = mysqli_num_rows($registeredStudentsResult);
 
     $numberOfNotRegStud = ($numOfElibleStudents - $numberOfRegisteredStudent);
+
+    $registeredLevel1StudQuery = "Select * from stud_exam_reg where exam_id=$currentExamId and level=1;";
+    $registeredLevel1StudResult = mysqli_query($con, $registeredLevel1StudQuery);
+    $numOfRegisteredLevel1Stud = mysqli_num_rows($registeredLevel1StudResult);
+
+    $registeredLevel2StudQuery = "Select * from stud_exam_reg where exam_id=$currentExamId and level=2;";
+    $registeredLevel2StudResult = mysqli_query($con, $registeredLevel2StudQuery);
+    $numOfRegisteredLevel2Stud = mysqli_num_rows($registeredLevel2StudResult);
+
+    $registeredLevel3StudQuery = "Select * from stud_exam_reg where exam_id=$currentExamId and level=3;";
+    $registeredLevel3StudResult = mysqli_query($con, $registeredLevel3StudQuery);
+    $numOfRegisteredLevel3Stud = mysqli_num_rows($registeredLevel3StudResult);
+
+    $registeredLevel4StudQuery = "Select * from stud_exam_reg where exam_id=$currentExamId and level=4;";
+    $registeredLevel4StudResult = mysqli_query($con, $registeredLevel4StudQuery);
+    $numOfRegisteredLevel4Stud = mysqli_num_rows($registeredLevel4StudResult);
+
     ?>
 
         <?php
         if($numOfElibleStudents != null){
             ?>
+    <div class="grid grid-cols-2 gap-2 mx-24">
         <div id="donutchart" class=" h-56 border rounded-xl  shadow-lg mt-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl"></div>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
@@ -124,7 +140,7 @@ require_once("../config/postSender.php");
                 ]);
 
                 var options = {
-                    title: <?php echo $exams['academic_year']?>,
+                    title: "Academic year <?php echo $exams['academic_year']?>" ,
                     pieHole: 0.4,
                 };
 
@@ -132,10 +148,42 @@ require_once("../config/postSender.php");
                 chart.draw(data, options);
             }
         </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load("current", {packages:['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ["Element", "Density", { role: "style" } ],
+                    ["Level 1", <?php echo $numOfRegisteredLevel1Stud ?>, "#b87333"],
+                    ["Level 2", <?php echo $numOfRegisteredLevel2Stud ?>, "silver"],
+                    ["Level 3", <?php echo $numOfRegisteredLevel3Stud ?>, "gold"],
+                    ["Level 4", <?php echo $numOfRegisteredLevel4Stud ?>, "color: #e5e4e2"]
+                ]);
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([0, 1,
+                    { calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation" },
+                    2]);
+
+                var options = {
+                    title: "Academic year <?php echo $exams['academic_year']?> (Registered students by levels)",
+                    bar: {groupWidth: "95%"},
+                    legend: { position: "none" },
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+                chart.draw(view, options);
+            }
+        </script>
+        <div id="columnchart_values" class="h-56 border rounded-xl  shadow-lg mt-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl"></div>
         <?php
             } else{?>
-            <div class="p-10 h-56 border rounded-xl bg-white  shadow-lg mt-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl">
-                <p class="bold text-3xl text-center">Students are not assigned yet!</p>
+            <div class="p-10 h-56 border rounded-xl bg-white  shadow-lg m-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl">
+                <p class="bold text-xl text-center">Students are not assigned yet!</p>
+                <p class="text-center text-gray-300">Academic year:  <?php echo $exams['academic_year'];?></p>
                 <p class="text-center text-md text-blue-600 my-5">Inform to the student admin</p>
                 <button type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Send mail</button>
             </div>
