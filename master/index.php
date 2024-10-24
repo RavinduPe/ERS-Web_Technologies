@@ -89,7 +89,6 @@ require_once("../config/postSender.php");
     $result = mysqli_query($con, $examQuery);
     if(mysqli_num_rows($result) > 0){
     ?>
-
     <?php
 
     while($exams = mysqli_fetch_assoc($result)){
@@ -122,7 +121,7 @@ require_once("../config/postSender.php");
     $numOfRegisteredLevel4Stud = mysqli_num_rows($registeredLevel4StudResult);
 
     ?>
-
+    <div class="">
         <?php
         if($numOfElibleStudents != null){
             ?>
@@ -181,7 +180,7 @@ require_once("../config/postSender.php");
         <div id="columnchart_values" class="h-56 border rounded-xl  shadow-lg mt-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl"></div>
         <?php
             } else{?>
-            <div class="p-10 h-56 border rounded-xl bg-white  shadow-lg m-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl">
+            <div class="w-[80%] p-10 h-56 border rounded-xl bg-white  shadow-lg m-auto mt-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl">
                 <p class="bold text-xl text-center">Students are not assigned yet!</p>
                 <p class="text-center text-gray-300">Academic year:  <?php echo $exams['academic_year'];?></p>
                 <p class="text-center text-md text-blue-600 my-5">Inform to the student admin</p>
