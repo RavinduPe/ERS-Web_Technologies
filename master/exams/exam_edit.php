@@ -182,7 +182,7 @@ else{
 
     // Define the getStudents function to fetch student registrations
     function getStudents() {
-        var examId = <?php echo $exam_id; ?>;
+        const examId = <?php echo $exam_id; ?>;
         var level = document.getElementById('level').value;
         var type = document.getElementById('type').value;
 

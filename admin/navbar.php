@@ -48,7 +48,8 @@
                 $curExam = mysqli_fetch_assoc($result);
             }
             ?>
-            <?php if (isset($curExam)) { ?>
+            <?php if (!empty($curExam)) { ?>
+                
                 <a
                         id="dashboardLink"
                         href="index.php?page=addIndex"
@@ -108,7 +109,7 @@
                 <i class="bi bi-journal-plus text-xl"></i>
                 <span class="transition-all">Units</span>
             </a>
-            <?php if (isset($curExam)) { ?>
+            <?php if (!empty($curExam)) { ?>
                 <a
                         id="dashboardLink"
                         href="index.php?page=asignUnits"
