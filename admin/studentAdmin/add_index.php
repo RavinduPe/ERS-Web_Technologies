@@ -1,3 +1,4 @@
+
 <?php
 ob_start();
 if (!isset($_SESSION['role'])) {
@@ -5,10 +6,12 @@ if (!isset($_SESSION['role'])) {
     exit();
 }
 
-include($_SERVER['DOCUMENT_ROOT'] . '/config/connect.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/config/connect.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/vendor/autoload.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/admin/subjectAdmin/assignUnits/currentExam.php');
 
 if (isset($_POST['upload'])) {
+    $exam_id = $_POST['exam_id'];
     $indexno = $_POST['indexno'];
     $regno = $_POST['regno'];
     $excel_file = $_FILES['excelFile']['name'];
@@ -53,23 +56,31 @@ if (isset($_POST['upload'])) {
     $msgs["error!"] = 0;
 
     foreach ($data as $user) {
+        
+        if($user['regNo'] == null || $user['indexNo'] == null ){
+            continue;
+        }
+
         $regNo = trim($user['regNo']);
         $indexNo = trim($user['indexNo']);
+
 
         // Check the name validation
         $regNoPattern = '/^\d{4}\/[A-Z]+\/\d{3}$/';
         if (!preg_match($regNoPattern, $regNo)) {
             $msgs["Invalid Registration No (XXXX/XXX/XXX)"]++;
+            var_dump($regNo);
         } else {
             $query = "SELECT * from student_check where regNo = '$regNo'";
 
             if (mysqli_num_rows(mysqli_query($con, $query)) <= 0) {
                 $msgs["registration number not found!"]++;
             } else {
-                if (isset($curExam)) {
-                    $exam_id = $curExam['exam_id'];
+                if (isset($_POST['exam_id'])) {
+                    $exam_id = $_POST['exam_id'];
                 }
-                $query = "SELECT * from exam_stud_index where indexNo ='$indexNo'";
+                //TODO AND exam_id = '$exam_id'"
+                $query = "SELECT * from exam_stud_index where indexNo ='$indexNo' AND exam_id = '$exam_id'";
 
                 if (mysqli_num_rows(mysqli_query($con, $query))) {
                     $msgs["index No already exist!"]++;
@@ -120,7 +131,20 @@ if (isset($_POST['upload'])) {
             }
         }
         ?>
+        
 
+        <div class="w-full grid grid-cols-3 items-center h-10">
+            <label for="exam_id">Select Exam:</label>
+            <select id="exam_id" name="exam_id" class="col-span-2 w-full h-full border border-gray-400 rounded-full px-5 outline-none focus:border-blue-500">
+                <option value="" disabled selected>Select Exam</option>
+                
+                <?php foreach ($curExam as $exam) { ?>
+                    <option value="<?php echo $exam['exam_id']; ?>">
+                        <?php echo $exam['academic_year'] . " - Semester " . $exam['semester']; ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
         <div class="w-full grid grid-cols-3 items-center h-10">
             <label for="regno">Excel File: </label>
             <input type="file"
@@ -151,4 +175,5 @@ if (isset($_POST['upload'])) {
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
+
 </script>
