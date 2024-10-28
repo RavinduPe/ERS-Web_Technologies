@@ -3,34 +3,30 @@
     if (isset($_POST['submit'])) {
         $subject = strtoupper($_POST['subject']);
 
+        // Check if the subject already exists
+        $query = "SELECT * FROM subject WHERE subject = '$subject'";
 
-            $query = "SELECT * from subject where subject ='$subject' ";
-
-            if (mysqli_num_rows(mysqli_query($con, $query))) {
-
-                $msg[0] = "Subject already added!";
+        if (mysqli_num_rows(mysqli_query($con, $query))) {
+            $msg[0] = "Subject already added!";
+            $msg[1] = "!text-red-500";
+        } else {
+            // Insert new subject if it doesn't already exist
+            $query = "INSERT INTO subject (subject) VALUES ('$subject')";
+            if (!mysqli_query($con, $query)) {
+                $msg[0] = "Error!";
                 $msg[1] = "!text-red-500";
             } else {
-                $query = "INSERT INTO subject (subject) values('$subject')";
-                if (!mysqli_query($con, $query)) {
-
-                    $msg[0] = "error!";
-                    $msg[1] = "!text-red-500";
-                } else {
-                    $query = "INSERT INTO subject (subject) values('$subject')";
-                    mysqli_query($con, $query);
-                    $msg[0] = "Successfully added!";
-                    $msg[1] = "!text-green-500";
-                }
+                $msg[0] = "Successfully added!";
+                $msg[1] = "!text-green-500";
             }
         }
-        
+    }
+    
+    // Fetch the list of subjects
     $sql = "SELECT * FROM subject";
     $sublist = mysqli_query($con, $sql);
 
-
-    ?>
-
+?>
 
 <div class="flex flex-col items-center justify-around gap-5">
     <h1 class="title">Subjects</h1>
@@ -52,24 +48,22 @@
         </tr>
         <?php
             if (mysqli_num_rows($sublist) > 0) {
-            while ($row = mysqli_fetch_assoc($sublist)) {
-                ?>
-                <tr class='h-10 odd:bg-blue-50'>
-                    <td><?php echo $row['subject']; ?></td>
-                </tr>
-                <?php
-            }
+                while ($row = mysqli_fetch_assoc($sublist)) {
+                    ?>
+                    <tr class='h-10 odd:bg-blue-50'>
+                        <td><?php echo $row['subject']; ?></td>
+                    </tr>
+                    <?php
+                }
             } else {
                 echo "<tr class='h-10 odd:bg-blue-50'>
                         <td>No record found</td>
-                    </tr>
-                                            ";
+                    </tr>";
             }
         ?>
     </table>
 
 </div>
-
 
 <script>
     if (window.history.replaceState) {
