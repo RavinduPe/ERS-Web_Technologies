@@ -1,3 +1,4 @@
+
 <nav
         id="navBar"
         class="fixed top-0 bottom-0 lg:left-0 py-5 px-7 w-[300px] bg-white drop-shadow-sm transition-all z-50">
@@ -174,4 +175,3 @@
 
 
 </script>
-

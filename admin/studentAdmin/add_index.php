@@ -1,3 +1,4 @@
+
 <?php
 ob_start();
 if (!isset($_SESSION['role'])) {
@@ -174,4 +175,5 @@ if (isset($_POST['upload'])) {
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
+
 </script>

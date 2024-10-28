@@ -1,3 +1,4 @@
+
 <?php
 $getCurrentExam = "SELECT * FROM exam_reg WHERE status = 'draft'";
 $result = mysqli_query($con, $getCurrentExam);
@@ -16,3 +17,4 @@ if ($result && $result instanceof mysqli_result) {
     echo "Error: Unable to fetch data.";
 }
 ?>
+

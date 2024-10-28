@@ -1,3 +1,4 @@
+
 <?php
 
 include "../../../config/connect.php";
@@ -32,4 +33,3 @@ if (isset($_POST['subject']) && isset($_POST['level']) && isset($_POST['exam_id'
 }
 
 $con->close();
-
