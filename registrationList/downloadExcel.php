@@ -1,6 +1,6 @@
 <?php
-    require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/vendor/autoload.php');
-    require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/config/connect.php');
+    require($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
+    require($_SERVER['DOCUMENT_ROOT'] . '/config/connect.php');
 
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
     use PhpOffice\PhpSpreadsheet\Writer\Xlsx;

@@ -1,14 +1,12 @@
-
 <?php
 
 include "../../../config/connect.php";
 
 if (isset($_POST['subject']) && isset($_POST['level']) && isset($_POST['exam_id']) && isset($_POST['type'])) {
-    $exam_id = intval($_POST['exam_id']); // Ensure this is treated as an integer
-    $level = intval($_POST['level']);
+    $exam_id = $_POST['exam_id'];
+    $level = $_POST['level'];
     $subject = $_POST['subject'];
-    $type = $_POST['type']; 
-
+    $type = $_POST['type'];
     // Fetch unit data from the database
     $get_query = "SELECT `unit`.*
                                 FROM `unit_sub_exam`
@@ -33,3 +31,4 @@ if (isset($_POST['subject']) && isset($_POST['level']) && isset($_POST['exam_id'
 }
 
 $con->close();
+
