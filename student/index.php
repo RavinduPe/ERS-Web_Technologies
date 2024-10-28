@@ -328,7 +328,7 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                         echo "</table>";
                         echo "</div>";
                     } else {
-                        echo "<p class='text-center text-lg font-semibold text-red-500 mt-4'>No exam registration details found for: $regNo</p>";
+                        echo "<p id='noexam' class='text-center text-lg font-semibold text-red-500 mt-4'>No exam registration details found for: $regNo</p>";
                     }
 
                     // Free result set and close the statement

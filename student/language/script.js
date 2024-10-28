@@ -19,23 +19,28 @@ function loadLanguage(language) {
           translations.datecreated;
         document.getElementById("closingdate").innerText =
           translations.closingdate;
-        document.getElementById("fullnametr").innerHTML = translations.fullname;
-        document.getElementById("districttr").innerHTML = translations.district;
-        document.getElementById("mobileNotr").innerText = translations.mobileNo;
-        document.getElementById("landlineNotr").innerText =
-          translations.landlineNo;
-        document.getElementById("jaffna_addresstr").innerText =
-          translations.jaffna_address;
-        document.querySelectorAll("#typetr").forEach((element) => {
-          element.innerText = translations.type;
-        });
-        document.querySelectorAll("#leveltr").forEach((element) => {
-          element.innerText = translations.level;
-        });
-        document.querySelectorAll("#semestertr").forEach((element) => {
-          element.innerText = translations.semester;
-        });
+        document.getElementById("exam_regtr").innerText = translations.exam_reg;
       }
+      if(document.getElementById("noexam") != null){
+        document.getElementById("noexam").innerHTML = translations.noexam;
+      }
+      document.getElementById("fullnametr").innerHTML = translations.fullname;
+      document.getElementById("districttr").innerHTML = translations.district;
+      document.getElementById("mobileNotr").innerText = translations.mobileNo;
+      document.getElementById("landlineNotr").innerText =
+        translations.landlineNo;
+      document.getElementById("jaffna_addresstr").innerText =
+        translations.jaffna_address;
+      document.querySelectorAll("#typetr").forEach((element) => {
+        element.innerText = translations.type;
+      });
+      document.querySelectorAll("#leveltr").forEach((element) => {
+        element.innerText = translations.level;
+      });
+      document.querySelectorAll("#semestertr").forEach((element) => {
+        element.innerText = translations.semester;
+      });
+
       //document.getElementById('leveltr').innerText = translations.level;
       //document.getElementById('semestertr').innerText = translations.semester;
       //document.getElementById('typetr').innerText = translations.type;
@@ -49,7 +54,6 @@ function loadLanguage(language) {
         document.getElementById("title-exhist").innerText =
           translations.title_exhist;
         document.getElementById("update").innerText = translations.update;
-        document.getElementById("exam_regtr").innerText = translations.exam_reg;
       }
       if (document.getElementById("nameWithInitialtr") != null) {
         document.getElementById("nameWithInitialtr").innerText =
