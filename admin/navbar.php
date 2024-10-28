@@ -1,4 +1,3 @@
-
 <nav
         id="navBar"
         class="fixed top-0 bottom-0 lg:left-0 py-5 px-7 w-[300px] bg-white drop-shadow-sm transition-all z-50">
@@ -41,6 +40,13 @@
                 <i class="bi bi-people-fill text-xl"></i>
                 <span class="transition-all">Students</span>
             </a>
+            <a
+                    id="dashboardLink"
+                    href="index.php?page=attendence"
+                    class="flex items-center gap-4 w-full bg-gray-100 rounded-xl py-2.5 px-4 cursor-pointer transition-all hover:bg-gray-200 hover:text-black font-semibold text-gray-700">
+                <i class="bi bi-people-fill text-xl"></i>
+                <span class="transition-all">Attendence</span>
+            </a>
             <?php
             $getCurrentExam = "SELECT * FROM exam_reg WHERE status = 'draft'";
             $result = mysqli_query($con, $getCurrentExam);
@@ -49,8 +55,7 @@
                 $curExam = mysqli_fetch_assoc($result);
             }
             ?>
-            <?php if (!empty($curExam)) { ?>
-                
+            <?php if (isset($curExam)) { ?>
                 <a
                         id="dashboardLink"
                         href="index.php?page=addIndex"
@@ -110,7 +115,7 @@
                 <i class="bi bi-journal-plus text-xl"></i>
                 <span class="transition-all">Units</span>
             </a>
-            <?php if (!empty($curExam)) { ?>
+            <?php if (isset($curExam)) { ?>
                 <a
                         id="dashboardLink"
                         href="index.php?page=asignUnits"
@@ -175,3 +180,4 @@
 
 
 </script>
+
