@@ -5,8 +5,8 @@ if (!isset($_SESSION['role'])) {
     exit();
 }
 
-include($_SERVER['DOCUMENT_ROOT'] . '/config/connect.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/config/connect.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/vendor/autoload.php');
 
 if (isset($_POST['upload'])) {
     $email = $_POST['email'];
