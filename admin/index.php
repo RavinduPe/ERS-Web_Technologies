@@ -70,14 +70,19 @@ require_once("navbar.php");
             if (isset($_GET['page'])) {
                 if ($_GET['page'] === "stud") {
                     include("studentAdmin/admin_student.php");
-                } else if ($_GET['page'] === "viewStud") {
+                }else if($_GET['page'] === "attendence"){
+                    include("studentAdmin/stud_attendence.php");
+                }else if ($_GET['page'] === "viewStud") {
                     if (isset($_POST['regNo']))
                         include("studentAdmin/admin_detail_student.php");
                     else
                         header("Location:index.php?page=stud");
                 } else if ($_GET['page'] === "profile") {
                     include("../config/profile.php");
-                } else if ($_GET['page'] === "pwdChg") {
+                    
+                }
+                
+                else if ($_GET['page'] === "pwdChg") {
                     include("../login/pwd_change.php");
                 } else if ($_GET['page'] === "updateProfile") {
                     include("../config/updateProfile.php");
@@ -90,6 +95,8 @@ require_once("navbar.php");
                     include("studentAdmin/add_student.php");
                 } else if ($_GET['page'] === "bulk") {
                     include("studentAdmin/bulk_upload.php");
+                }else if ($_GET['page'] === "attd_bulk") {
+                        include("studentAdmin/attendence_bulk_uplaod.php");
                 } else if ($_GET['page'] === "addIndex") {
                     include("studentAdmin/add_index.php");
                 } else if ($_GET['page'] === "slips") {
