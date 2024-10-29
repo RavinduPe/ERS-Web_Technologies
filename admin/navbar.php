@@ -40,6 +40,13 @@
                 <i class="bi bi-people-fill text-xl"></i>
                 <span class="transition-all">Students</span>
             </a>
+            <a
+                    id="dashboardLink"
+                    href="index.php?page=attendence"
+                    class="flex items-center gap-4 w-full bg-gray-100 rounded-xl py-2.5 px-4 cursor-pointer transition-all hover:bg-gray-200 hover:text-black font-semibold text-gray-700">
+                <i class="bi bi-people-fill text-xl"></i>
+                <span class="transition-all">Attendence</span>
+            </a>
             <?php
             $getCurrentExam = "SELECT * FROM exam_reg WHERE status = 'draft'";
             $result = mysqli_query($con, $getCurrentExam);
