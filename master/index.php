@@ -32,9 +32,7 @@ require_once("../config/postSender.php");
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/master.css" />
-    <script
-    src="https://kit.fontawesome.com/5ce4b972fd.js"
-    crossorigin="anonymous"></script>
+
 </head>
 <body class="bg-gray-200 sm:text-xs xl:text-sm 2xl:text-base">
 
@@ -45,8 +43,8 @@ require_once("../config/postSender.php");
 
 
 
-<div id="nextSibling" class="transition-all ml-[300px] h-auto grid grid-rows-2 py-20">
-    <div class="card drop-shadow-xl <?php if (isset($_GET['page']) && ($_GET['page'] === "viewReg")) echo "overflow-y-auto" ?>">
+<div id="nextSibling" class="transition-all ml-[300px] h-auto grid py-20">
+    <div class="card <?php if (isset($_GET['page']) && ($_GET['page'] === "viewReg")) echo "overflow-y-auto" ?>">
         <?php
         // print_r($_POST);
         // echo "<br>";
@@ -89,6 +87,7 @@ require_once("../config/postSender.php");
     $result = mysqli_query($con, $examQuery);
     if(mysqli_num_rows($result) > 0){
     ?>
+    <p class="font-bold text-2xl p-5 border rounded-xl bg-white mx-24 mt-4">Summary Of Processing Exams</p>
     <?php
 
     while($exams = mysqli_fetch_assoc($result)){
@@ -180,11 +179,13 @@ require_once("../config/postSender.php");
         <div id="columnchart_values" class="h-56 border rounded-xl  shadow-lg mt-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl"></div>
         <?php
             } else{?>
-            <div class="w-[80%] p-10 h-56 border rounded-xl bg-white  shadow-lg m-auto mt-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl">
+            <div class="p-10 h-56 border rounded-xl bg-white  shadow-lg mx-24 mt-4 overflow-hidden hover:cursor-pointer hover:shadow-2xl">
                 <p class="bold text-xl text-center">Students are not assigned yet!</p>
                 <p class="text-center text-gray-300">Academic year:  <?php echo $exams['academic_year'];?></p>
                 <p class="text-center text-md text-blue-600 my-5">Inform to the student admin</p>
-                <button type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Send mail</button>
+                <form action="send_email.php" onsubmit="showAlert(event)" method="POST">
+                    <button type="submit" id="send_email" name="send_email" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Send mail</button>
+                </form>
             </div>
         <?php }}} ?>
     </div>
@@ -205,7 +206,6 @@ require_once("../config/postSender.php");
         </form>
     </div>
 <?php } ?>
-
-
+    <script src="sweetalert2.all.min.js"></script>
 </body>
 </html>
