@@ -153,17 +153,17 @@ function setSelected($fieldName, $fieldValue) {
     </script>
 
 </head>
-<body class="bg-slate-200" id="exam">
+<body class="bg-slate-200 dark:bg-gray-700 dark:text-white" id="exam">
     <?php if (isset($_GET['error'])) { ?>
         <div class="exam-false fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7" action="index.php" method="POST">
+            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7 bg-white text-black dark:bg-gray-800 dark:text-white" action="index.php" method="POST">
                 <p class="text-center"><?php echo $_GET['error'] ?></p>
                 <input class="btn fill-btn" type="submit" value="OK" name="ok">
             </form>
         </div>
     <?php } elseif (isset($_GET['success'])) { ?>
         <div class="exam-false fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7" action="index.php" method="POST">
+            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7 bg-white text-black dark:bg-gray-800 dark:text-white" action="index.php" method="POST">
                 <p class="text-center text-green-700"><?php echo $_GET['success'] ?></p>
                 <input class="btn fill-btn !bg-green-700" type="submit" value="OK" name="ok">
             </form>
@@ -171,7 +171,7 @@ function setSelected($fieldName, $fieldValue) {
     <?php } ?>
 
 
-    <nav class="w-full h-[15vh] min-h-fit drop-shadow-md bg-white fixed top-0 left-0">
+    <nav class="w-full h-[15vh] min-h-fit drop-shadow-md bg-white fixed top-0 left-0 text-black dark:bg-gray-900 dark:text-white">
         <div class="w-10/12 h-full m-auto flex items-center justify-between">
             <a href="index.php">
                 <img src="../assets/img/logo/ERS_logo.gif" alt="logo" class="w-28 align-middle">
@@ -189,7 +189,7 @@ function setSelected($fieldName, $fieldValue) {
             </ul>
 
         </div>
-        <div class="hidden top-[14.8vh] right-0 h-56 w-full bg-white -translate-y-full z-20 transition-transform lg:top-[16vh] lg:drop-shadow-2xl lg:right-24 lg:w-56 lg:translate-x-full lg:h-72 lg:rounded-tl-3xl lg:rounded-br-3xl lg:text-gray-800" id="user-menu">
+        <div class="hidden top-[14.8vh] right-0 h-56 w-full bg-white -translate-y-full z-20 transition-transform lg:top-[16vh] lg:drop-shadow-2xl lg:right-24 lg:w-56 lg:translate-x-full lg:h-72 lg:rounded-tl-3xl lg:rounded-br-3xl lg:text-gray-800 text-black dark:bg-gray-800 dark:text-white" id="user-menu">
             <ul class="w-11/12 h-full m-auto flex flex-col items-center justify-around text-center">
                 <li class="mt-3 "><a class="py-4 hover:text-blue-600 hover:font-bold hover:tracking-wide transition-all" href="exam_reg.php">Exam Registration</a></li>
                 <div class="h-px w-3/4 bg-gray-300"></div>
@@ -202,9 +202,9 @@ function setSelected($fieldName, $fieldValue) {
         </div>
     </nav>
 
-    <div class="w-11/12 lg:w-1/2 mx-auto mt-[22vh] mb-20">
-        <div class="card ">
-            <div class="w-11/12 mx-auto h-fit">
+    <div class="w-11/12 lg:w-1/2 mx-auto mt-[22vh] mb-20 dark:bg-gray-800 dark:text-white ">
+        <div class="card bg-white text-black dark:bg-gray-800 dark:text-white">
+            <div class="w-11/12 mx-auto h-fit dark:bg-gray-800 dark:text-white ">
 
                 <?php
                 if (isset($_POST["step"])) {
@@ -566,9 +566,9 @@ function setSelected($fieldName, $fieldValue) {
                     }else
                         $selectedUnits = array();
                     ?>
-                    <h1 class="text-lg font-black text-center underline mt-5 text-gray-800 lg:text-2xl">Exam Registration</h1>
+                    <h1 class="text-lg font-black text-center underline mt-5 text-gray-800 lg:text-2xl bg-white text-black dark:bg-gray-800 dark:text-white">Exam Registration</h1>
 
-                    <div class="instructions mt-7 mb-16">
+                    <div class="instructions mt-7 mb-16 bg-white text-black dark:bg-gray-800 dark:text-white">
                         <p class="font-bold">Read the following instructions carefully before filling this form ------ &gt; &gt; &gt;</p>
                         <ol class="ml-4 lg:ml-7 my-4 list-decimal text-justify">
                             <li>Students are advised to use either an individual smartphone or personal computer to avoid technical errors.</li>
@@ -601,9 +601,9 @@ function setSelected($fieldName, $fieldValue) {
                         <p>If you have any questions, feel free to contact us at using contact us option in this website.</p>
                         <p class="text-right mt-5">Assistant Registrar<br>FACULTY OF SCIENCE</p>
                     </div>
-                    <div class="w-11/12 mx-auto">
+                    <div class="w-11/12 mx-auto bg-white text-black dark:bg-gray-800 dark:text-white">
                         <h3 class="font-bold lg:text-xl text-center text-gray-800">Personal Details</h3>
-                        <form action="exam_reg.php" method="POST" class="mt-10 h-[350px] flex flex-col justify-around" id="examForm">
+                        <form action="exam_reg.php" method="POST" class="mt-10 h-[350px] flex flex-col justify-around dark:bg-gray-800 dark:text-white" id="examForm">
                             <input type="hidden" name="step" value="1" />
                             <?php if(isset($_POST['regId'])) {
                                 echo "<input type='hiddestepn' name='regId' value='" . $_POST['regId'] . "' />\n";
@@ -615,12 +615,12 @@ function setSelected($fieldName, $fieldValue) {
                                 <input type="hidden" name="units[]" value="<?php echo $unitId; ?>" />
                             <?php } ?>
                             <div class="detail-row  my-1 !block lg:!grid !w-full">
-                                <label class="hidden lg:block" for="indexNo">Index Number: <span class="text-red-500">*</span></label>
-                                <input class="inputs tracking-wider disabled:opacity-60" type="text" name="indexNo" value="<?php echo $indexNo ?>" disabled />
+                                <label class="hidden lg:block " for="indexNo">Index Number: <span class="text-red-500">*</span></label>
+                                <input class="inputs tracking-wider disabled:opacity-60 bg-white text-black dark:bg-gray-800 dark:text-white" type="text" name="indexNo" value="<?php echo $indexNo ?>" disabled />
                             </div>
                             <div class="detail-row  my-1 !block lg:!grid !w-full">
-                                <label class="hidden lg:block" for="type">Type: <span class="text-red-500">*</span></label>
-                                <select class="inputs" id="type" name="type"  required  <?php if(isset($_POST['regId'])) echo "disabled";?>>
+                                <label class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="type">Type: <span class="text-red-500">*</span></label>
+                                <select class="inputs bg-white text-black dark:bg-gray-800 dark:text-white" id="type" name="type"  required  <?php if(isset($_POST['regId'])) echo "disabled";?>>
                                     <option value="select" <?php setSelected('type', 'select') ?> disabled selected>Select Type</option>
                                     <?php
                                     global $exams_type;
@@ -632,8 +632,8 @@ function setSelected($fieldName, $fieldValue) {
                             </div>
                             <div id="level_block" class="detail-row  my-1 !block lg:!grid !w-full">
 
-                                <label class="hidden lg:block" for="level">Level: <span class="text-red-500">*</span></label>
-                                <select class="inputs" id="level" name="level" required <?php if(isset($_POST['regId'])) echo "disabled";?>>
+                                <label class="hidden lg:block " for="level">Level: <span class="text-red-500">*</span></label>
+                                <select class="inputs bg-white text-black dark:bg-gray-800 dark:text-white" id="level" name="level" required <?php if(isset($_POST['regId'])) echo "disabled";?>>
                                     <option value="select" <?php setSelected('level', 'select') ?> disabled selected>Select Level</option>
                                     <?php
                                     global $exams_type;
@@ -677,7 +677,7 @@ function setSelected($fieldName, $fieldValue) {
 
                             <div class="detail-row  my-1 !block lg:!grid !w-full">
                                 <label class="hidden lg:block" for="combination">Subject Combination: <span class="text-red-500">*</span></label>
-                                <select class="inputs" id="combination" name="combination" required>
+                                <select class="inputs bg-white text-black dark:bg-gray-800 dark:text-white" id="combination" name="combination" required>
                                     <option value="select" disabled selected>Select Combination</option>
                                     <?php
                                     while ($userCombination = mysqli_fetch_assoc($combinationList)) { ?>
@@ -701,7 +701,7 @@ function setSelected($fieldName, $fieldValue) {
                     $selectedUnits = (isset($_POST['units']))?$_POST['units']:array();
                     $count = 0;
                     ?>
-                    <div class="w-full lg:w-11/12 mx-auto">
+                    <div class="w-full lg:w-11/12 mx-auto bg-white text-black dark:bg-gray-800 dark:text-white">
                         <div>
                             <h3 class="font-bold lg:text-xl text-center text-gray-800">Select Units</h3>
                             <p class="text-center text-gray-500">Select course units you want to apply for the exam. If any course units need to be added, please contact the respective Heads of departments.</p>
