@@ -5,8 +5,8 @@ if (!isset($_SESSION['role'])) {
     exit();
 }
 
-include($_SERVER['DOCUMENT_ROOT'] . '/config/connect.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/config/connect.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/vendor/autoload.php');
 
 if (isset($_POST['upload'])) {
     $email = $_POST['email'];
@@ -105,17 +105,10 @@ if (isset($_POST['upload'])) {
         ?>
 
         <div class="w-full grid grid-cols-3 items-center h-10">
-            <label for="regno">Excel File: </label>
+            <label for="regno">Exel File: </label>
             <input type="file" class="col-span-2 w-full h-full file:cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-[#5465ff] hover:file:bg-violet-100" name="excelFile" required>
         </div>
-        <div class="w-full grid grid-cols-3 items-center h-10">
-            <label for="regno">Registration No.: </label>
-            <input type="text" placeholder="Excel files' relevant column name" class="col-span-2 w-full h-full border-2 border-gray-400 rounded-full px-5 outline-none focus:border-blue-500" name="regno" required>
-        </div>
-        <div class="w-full grid grid-cols-3 items-center h-10">
-            <label for="email">Email: </label>
-            <input type="text" placeholder="Excel files' relevant column name" class="col-span-2 w-full h-full border-2 border-gray-400 rounded-full px-5 outline-none focus:border-blue-500" name="email" required>
-        </div>
+       
         <div class="w-full grid grid-cols-3 items-center h-10 gap-5 mt-5 mb-2">
             <input type="button" value="< Back" onclick="history.back()" class="btn outline-btn">
             <input type="submit" class="col-span-2 w-full btn fill-btn" name="upload" value="Upload">
