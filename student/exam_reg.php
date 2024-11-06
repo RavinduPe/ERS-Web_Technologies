@@ -553,6 +553,7 @@ function setSelected($fieldName, $fieldValue) {
                 }
 
                 function displayStep1() {
+                    global $selectedUnits;
                     global $combinationList, $_POST, $examUnitId, $exam, $regNo, $indexNo, $edit;
                     if(isset($_POST['regId']) AND !isset($_POST['level'])){
                         $_POST['level'] = $GLOBALS['regDetail']['level'];
@@ -725,17 +726,67 @@ function setSelected($fieldName, $fieldValue) {
 
                             <input type="hidden" value="<?php echo $_POST['combination'] ?>" name="combination">
 
+                            <?php   
+                            $user = $_SESSION['userid'];
+                            global $con, $exam_id;
 
+                            $count;
+                            ?>
+                            
                             <?php while ($unit = mysqli_fetch_assoc($unitsQueryResult)) {
                                 $count++;
                                 $unitId = $unit['unitId'];
                                 $isChecked = in_array($unitId, $selectedUnits);
+                                $attendancePresentage;
+
+                                $unitCode = $unit['unitCode'];
+                                $attendenceQuery = "select attendence from student_attendence where regNo = '$user' and unit_code = '$unitCode'";
+                                $attendenceQueryResult = mysqli_query($con, $attendenceQuery);
+                                $result = mysqli_num_rows($attendenceQueryResult);
+
+                                if($result > 0){}
+                                
+                                while($att = mysqli_fetch_assoc($attendenceQueryResult)){
+                                    $attendancePresentage = $att['attendence'];
+                                }
+
+                                if($attendancePresentage < 80){
+                                    $disable = "text-red-500 cursor-not-allowed opacity-50";
+                                    $field = "disabled ";
+                                    $count++;
+                                }
+                                else{
+                                    $disable ="";
+                                    $field = "";
+                                }
                                 ?>
                                 <div class="grid grid-cols-3 content-center">
-                                    <label class="font-[400] col-span-2" for="<?php echo "unit_$count" ?>"><?php echo $unit['name'] ?></label>
-                                    <input class="border-blue-500 w-5 h-5 justify-self-end self-center" type="checkbox" name="units[]" value="<?php echo $unitId ?>" id="<?php echo "unit_$count" ?>" <?php if ($isChecked) echo "checked"; ?> />
+                                    <label class="font-[400] col-span-2 <?php echo $disable ?>"  for="<?php echo "unit_$count" ?>"><?php echo $unit['name'] ?></label>
+                                    <input class="border-blue-500 w-5 h-5 justify-self-end self-center" <?php echo $field ?> type="checkbox" name="units[]" value="<?php echo $unitId ?>" id="<?php echo "unit_$count" ?>" <?php if ($isChecked) echo "checked"; ?> />
                                 </div>
                                 <?php
+                            }
+                            if($count > 0){
+                                ?>
+                                <div class="border rounded-xl bg-red-200 flex">
+                                <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                        width="40px" height="40px" viewBox="0 0 45.311 45.311"
+                                        xml:space="preserve" class="p-2">
+                                    <g>
+                                        <path d="M22.675,0.02c-0.006,0-0.014,0.001-0.02,0.001c-0.007,0-0.013-0.001-0.02-0.001C10.135,0.02,0,10.154,0,22.656
+                                            c0,12.5,10.135,22.635,22.635,22.635c0.007,0,0.013,0,0.02,0c0.006,0,0.014,0,0.02,0c12.5,0,22.635-10.135,22.635-22.635
+                                            C45.311,10.154,35.176,0.02,22.675,0.02z M22.675,38.811c-0.006,0-0.014-0.001-0.02-0.001c-0.007,0-0.013,0.001-0.02,0.001
+                                            c-2.046,0-3.705-1.658-3.705-3.705c0-2.045,1.659-3.703,3.705-3.703c0.007,0,0.013,0,0.02,0c0.006,0,0.014,0,0.02,0
+                                            c2.045,0,3.706,1.658,3.706,3.703C26.381,37.152,24.723,38.811,22.675,38.811z M27.988,10.578
+                                            c-0.242,3.697-1.932,14.692-1.932,14.692c0,1.854-1.519,3.356-3.373,3.356c-0.01,0-0.02,0-0.029,0c-0.009,0-0.02,0-0.029,0
+                                            c-1.853,0-3.372-1.504-3.372-3.356c0,0-1.689-10.995-1.931-14.692C17.202,8.727,18.62,5.29,22.626,5.29
+                                            c0.01,0,0.02,0.001,0.029,0.001c0.009,0,0.019-0.001,0.029-0.001C26.689,5.29,28.109,8.727,27.988,10.578z"/>
+                                    </g>
+                                </svg>
+                                    <p class="font-bold text-sm p-2 mx-2">Notice: You don't have the required 80% attendance to participate in this course unit.</p>
+                                </div>
+                            
+                            <?php
                             }
                             ?>
 
