@@ -93,6 +93,22 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
     <script
     src="https://kit.fontawesome.com/5ce4b972fd.js"
     crossorigin="anonymous"></script>
+
+    <!-- <script>
+        document.onload = function(){
+            let theme = localStorage.getItem('theme');
+            document.documentElement.classList.toggle(theme);
+            console.log(document.documentElement.classList);
+        }
+
+        document.addEventListener("DOMContentLoaded", function(){
+            let theme = localStorage.getItem('theme');
+            document.documentElement.classList.toggle(theme);
+            console.log(document.documentElement.classList);
+        });
+    </script> -->
+
+
 </head>
 <body class=" bg-gray-50 sm:text-xs xl:text-sm 2xl:text-base text-black dark:bg-gray-700 dark:text-white" id="student">
     <!-- //Navbar -->
@@ -104,7 +120,7 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
             <ul class="flex items-center justify-around gap-10">
                 <li><a id = "reg_button" href="exam_reg.php" class="hidden btn outline-btn md:block">Exam Registration</a></li>
                 <li>
-                <label for="languageSwitcher" class="block text-lg font-semibold mb-2">Choose Language:</label>
+                <label for="languageSwitcher" class="block text-lg font-semibold mb-2 ">Choose Language:</label>
                 <select id="languageSwitcher" class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 bg-white text-black dark:bg-gray-800 dark:text-white">
                     <option value="en">English</option>
                     <option value="sin">සිංහල</option>
@@ -112,16 +128,17 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                     <!-- Add more languages as needed -->
                 </select>
                 </li>
-                <li>
+                <!-- <li>
                 <button onclick="toggleDarkMode()">Toggle Dark Mode</button>    
                     <script>
                         function toggleDarkMode() {
+                            localStorage.setItem('theme' , document.documentElement.classList );
                             document.documentElement.classList.toggle('dark');
-                            console.log(document.documentElement.classList); // Should show "dark" in the console when toggled on
+                            console.log("asdsad" , document.documentElement.classList); // Should show "dark" in the console when toggled on
                         }
 
                     </script>
-                </li>
+                </li> -->
 
 
                 <?php if (!isset($profile_img)) { ?>
@@ -372,7 +389,7 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                     <div class="w-full mx-auto mt-8 overflow-x-hidden">
                         <div class="w-full overflow-x-scroll lg:overflow-x-visible ">
                             <table class="w-full lg:w-11/12 mx-auto rounded-lg text-xs lg:text-base ">
-                                <thead class="bg-blue-100 h-6 lg:h-12 bg-white text-black dark:bg-gray-800 dark:text-white">
+                                <thead class="bg-blue-100 h-6 lg:h-12  text-black dark:bg-gray-800 dark:text-white">
                                     <th id = "datetr" class="font-semibold px-3 w-36">Date</th>
                                     <th id = "typetr" class="font-semibold px-3 border-gray-100 border-x-2">Type</th>
                                     <th id = "leveltr" class="font-semibold px-3 border-gray-100 border-x-2">Level</th>
