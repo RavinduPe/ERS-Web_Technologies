@@ -698,108 +698,135 @@ function setSelected($fieldName, $fieldValue) {
 
                 <?php }
 
-                function displayStep2($unitsQueryResult) {
-                    $selectedUnits = (isset($_POST['units']))?$_POST['units']:array();
-                    $count = 0;
-                    ?>
-                    <div class="w-full lg:w-11/12 mx-auto">
-                        <div>
-                            <h3 class="font-bold lg:text-xl text-center text-gray-800">Select Units</h3>
-                            <p class="text-center text-gray-500">Select course units you want to apply for the exam. If any course units need to be added, please contact the respective Heads of departments.</p>
-                        </div>
-                        <form action="exam_reg.php" method="POST" class="mt-10 min-h-[350px] w-11/12 lg:w-3/4 mx-auto flex flex-col gap-y-5">
-                            <input type="hidden" name="step" value="2" />
-                            <?php if(isset($_POST['regId'])) echo "<input type='hidden' name='regId' value='".$_POST['regId']."' />" ?>
+function displayStep2($unitsQueryResult) {
+    $selectedUnits = (isset($_POST['units'])) ? $_POST['units'] : array();
+    $count = 0;
+    ?>
+    <div class="w-full lg:w-11/12 mx-auto">
+        <div>
+            <h3 class="font-bold lg:text-xl text-center text-gray-800">Select Units</h3>
+            <p class="text-center text-gray-500">Select course units you want to apply for the exam. If any course units need to be added, please contact the respective Heads of departments.</p>
+        </div>
+        <form action="exam_reg.php" method="POST" class="mt-10 min-h-[350px] w-11/12 lg:w-3/4 mx-auto flex flex-col gap-y-5">
+            <input type="hidden" name="step" value="2" />
+            <?php if (isset($_POST['regId'])) echo "<input type='hidden' name='regId' value='" . $_POST['regId'] . "' />" ?>
 
-                            <select id="type" name="type" hidden>
-                                <option value="select" <?php setSelected('type', 'select') ?>>Select Type</option>
-                                <option value="proper" <?php setSelected('type', 'proper') ?>>Proper</option>
-                                <option value="repeat" <?php setSelected('type', 'repeat') ?>>Repeat</option>
-                            </select>
-                            <select id="level" name="level" hidden>
-                                <option value="select" <?php setSelected('level', 'select') ?>>Select Level</option>
-                                <option value="1" <?php setSelected('level', 1) ?>>Level 1</option>
-                                <option value="2" <?php setSelected('level', 2) ?>>Level 2</option>
-                                <option value="3" <?php setSelected('level', 3) ?>>Level 3</option>
-                                <option value="4" <?php setSelected('level', 4) ?>>Level 4</option>
-                            </select>
+            <select id="type" name="type" hidden>
+                <option value="select" <?php setSelected('type', 'select') ?>>Select Type</option>
+                <option value="proper" <?php setSelected('type', 'proper') ?>>Proper</option>
+                <option value="repeat" <?php setSelected('type', 'repeat') ?>>Repeat</option>
+            </select>
+            <select id="level" name="level" hidden>
+                <option value="select" <?php setSelected('level', 'select') ?>>Select Level</option>
+                <option value="1" <?php setSelected('level', 1) ?>>Level 1</option>
+                <option value="2" <?php setSelected('level', 2) ?>>Level 2</option>
+                <option value="3" <?php setSelected('level', 3) ?>>Level 3</option>
+                <option value="4" <?php setSelected('level', 4) ?>>Level 4</option>
+            </select>
 
-                            <input type="hidden" value="<?php echo $_POST['combination'] ?>" name="combination">
+            <input type="hidden" value="<?php echo $_POST['combination'] ?>" name="combination">
 
-                            <?php   
-                            $user = $_SESSION['userid'];
-                            global $con, $exam_id;
+            <?php   
+            $user = $_SESSION['userid'];
+            global $con, $exam_id;
+            $btnDisable = false;
 
-                            $count;
-                            ?>
-                            
-                            <?php while ($unit = mysqli_fetch_assoc($unitsQueryResult)) {
-                                $count++;
-                                $unitId = $unit['unitId'];
-                                $isChecked = in_array($unitId, $selectedUnits);
-                                $attendancePresentage;
+            while ($unit = mysqli_fetch_assoc($unitsQueryResult)) {
+                $count++;
+                $unitId = $unit['unitId'];
+                $isChecked = in_array($unitId, $selectedUnits);
 
-                                $unitCode = $unit['unitCode'];
-                                $attendenceQuery = "select attendence from student_attendence where regNo = '$user' and unit_code = '$unitCode'";
-                                $attendenceQueryResult = mysqli_query($con, $attendenceQuery);
-                                $result = mysqli_num_rows($attendenceQueryResult);
+                $unitCode = $unit['unitCode'];
+                $attendanceQuery = "SELECT attendence FROM 	student_attendence WHERE regNo = '$user' AND unit_code = '$unitCode'";
+                $attendanceQueryResult = mysqli_query($con, $attendanceQuery);
+                $result = mysqli_num_rows($attendanceQueryResult);
+                
+                $attendancePercentage = 0;
+                if ($result > 0) {
+                    while ($att = mysqli_fetch_assoc($attendanceQueryResult)) {
+                        $attendancePercentage = $att['attendence'];
+                    }
 
-                                if($result > 0){}
-                                
-                                while($att = mysqli_fetch_assoc($attendenceQueryResult)){
-                                    $attendancePresentage = $att['attendence'];
-                                }
+                    $disable = $attendancePercentage < 80 ? "text-red-500 cursor-not-allowed opacity-50" : "";
+                    $field = $attendancePercentage < 80 ? "disabled " : "";
+                } else {
+                    $disable = "text-gray-400 cursor-not-allowed opacity-50";
+                    $field = "disabled ";
+                    $btnDisable = true;
+                    break;
+                }
+                ?>
+                <div class="grid grid-cols-3 content-center">
+                    <label class="font-[400] col-span-2 <?php echo $disable ?>" for="<?php echo "unit_$count" ?>">
+                        <?php echo $unit['name'] ?>
+                    </label>
+                    <input class="border-blue-500 w-5 h-5 justify-self-end self-center" <?php echo $field ?> type="checkbox" name="units[]" value="<?php echo $unitId ?>" id="<?php echo "unit_$count" ?>" <?php if ($isChecked) echo "checked"; ?> />
+                </div>
+                <?php
+            }    ?>
+                
+                <?php
+            if($btnDisable){
+            ?>
+                 <div class="border rounded-xl bg-red-200 flex">
+                    <svg height="70px" width="70px" class="mx-2" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                        viewBox="0 0 511.999 511.999" xml:space="preserve">
+                    <path style="fill:#F5C525;" d="M16.242,429.476L232.332,55.195c10.518-18.219,36.814-18.219,47.333,0l216.091,374.281
+                        c10.518,18.219-2.63,40.991-23.666,40.991H39.908C18.872,470.467,5.723,447.695,16.242,429.476z"/>
+                    <g>
+                        <path style="fill:#EFEFEF;" d="M255.999,322.45L255.999,322.45c-14.172,0-25.66-11.488-25.66-25.66V172.87
+                            c0-14.172,11.488-25.66,25.66-25.66l0,0c14.172,0,25.66,11.488,25.66,25.66v123.92C281.659,310.962,270.171,322.45,255.999,322.45z
+                            "/>
+                        <circle style="fill:#EFEFEF;" cx="256.001" cy="397.558" r="25.034"/>
+                    </g>
+                    <g>
+                        <path style="fill:#231F20;" d="M506.597,423.218L290.506,48.937C283.304,36.462,270.404,29.014,256,29.014
+                            c-14.404,0-27.304,7.448-34.506,19.922L5.402,423.218c-7.202,12.475-7.202,27.37,0,39.845
+                            c7.202,12.475,20.103,19.922,34.507,19.922h432.183c14.405,0,27.305-7.448,34.507-19.922
+                            C513.799,450.588,513.799,435.692,506.597,423.218z M484.917,450.545c-1.286,2.227-5.108,7.405-12.826,7.405H39.908
+                            c-7.718,0-11.541-5.178-12.826-7.405c-1.286-2.227-3.859-8.126,0-14.81L243.172,61.454c3.859-6.683,10.255-7.405,12.826-7.405
+                            s8.967,0.722,12.826,7.405l216.091,374.281C488.775,442.419,486.201,448.318,484.917,450.545z"/>
+                        <path style="fill:#231F20;" d="M255.999,134.692c-21.051,0-38.177,17.126-38.177,38.177v123.92
+                            c0,21.051,17.126,38.178,38.177,38.178s38.177-17.126,38.177-38.177V172.87C294.176,151.818,277.05,134.692,255.999,134.692z
+                            M269.142,296.79c0,7.247-5.896,13.143-13.143,13.143s-13.143-5.896-13.143-13.143V172.87c0-7.247,5.896-13.143,13.143-13.143
+                            s13.143,5.896,13.143,13.143V296.79z"/>
+                        <path style="fill:#231F20;" d="M255.999,360.002c-20.706,0-37.552,16.846-37.552,37.552c0,20.706,16.846,37.552,37.552,37.552
+                            s37.552-16.846,37.552-37.552C293.55,376.848,276.705,360.002,255.999,360.002z M255.999,410.071
+                            c-6.902,0-12.517-5.615-12.517-12.517c0-6.902,5.615-12.517,12.517-12.517s12.517,5.615,12.517,12.517
+                            C268.516,404.455,262.901,410.071,255.999,410.071z"/>
+                    </g>
+                    </svg>
+                    <p class="font-bold text-sm p-2 mx-2">Important: Attendance records are missing for one or more of your course units. 
+                    Please contact the dean's office immediately to resolve this issue before proceeding.</p>
+                </div>
+                <input class="btn outline-btn w-full" type="submit" name="submit" value="&lt; Back" />
+            <?php } else {?>
+                <div class="border rounded-xl bg-red-200 flex">
+                    <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px" viewBox="0 0 45.311 45.311" xml:space="preserve" class="p-2">
+                        <g>
+                            <path d="M22.675,0.02c-0.006,0-0.014,0.001-0.02,0.001c-0.007,0-0.013-0.001-0.02-0.001C10.135,0.02,0,10.154,0,22.656
+                                c0,12.5,10.135,22.635,22.635,22.635c0.007,0,0.013,0,0.02,0c0.006,0,0.014,0,0.02,0c12.5,0,22.635-10.135,22.635-22.635
+                                C45.311,10.154,35.176,0.02,22.675,0.02z M22.675,38.811c-0.006,0-0.014-0.001-0.02-0.001c-0.007,0-0.013,0.001-0.02,0.001
+                                c-2.046,0-3.705-1.658-3.705-3.705c0-2.045,1.659-3.703,3.705-3.703c0.007,0,0.013,0,0.02,0c0.006,0,0.014,0,0.02,0
+                                c2.045,0,3.706,1.658,3.706,3.703C26.381,37.152,24.723,38.811,22.675,38.811z M27.988,10.578
+                                c-0.242,3.697-1.932,14.692-1.932,14.692c0,1.854-1.519,3.356-3.373,3.356c-0.01,0-0.02,0-0.029,0c-0.009,0-0.02,0-0.029,0
+                                c-1.853,0-3.372-1.504-3.372-3.356c0,0-1.689-10.995-1.931-14.692C17.202,8.727,18.62,5.29,22.626,5.29
+                                c0.01,0,0.02,0.001,0.029,0.001c0.009,0,0.019-0.001,0.029-0.001C26.689,5.29,28.109,8.727,27.988,10.578z"/>
+                        </g>
+                    </svg>
+                    <p class="font-bold text-sm p-2 mx-2">Notice: You don't have the required 80% attendance to participate in this course unit.</p>
+                </div>
+            <div class="w-full flex items-center justify-around mt-5">
+                <input class="btn outline-btn w-5/12" type="submit" name="submit" value="&lt; Back" />
+                <input class="btn fill-btn w-5/12" type="submit" name="submit" value="<?php echo ($_POST['type'] == 'repeat') ? 'Next &gt;' : 'Submit' ?>" />
+            </div>
+            <?php } ?>
+        </form>
+    </div>
+    <?php
+}
 
-                                if($attendancePresentage < 80){
-                                    $disable = "text-red-500 cursor-not-allowed opacity-50";
-                                    $field = "disabled ";
-                                    $count++;
-                                }
-                                else{
-                                    $disable ="";
-                                    $field = "";
-                                }
-                                ?>
-                                <div class="grid grid-cols-3 content-center">
-                                    <label class="font-[400] col-span-2 <?php echo $disable ?>"  for="<?php echo "unit_$count" ?>"><?php echo $unit['name'] ?></label>
-                                    <input class="border-blue-500 w-5 h-5 justify-self-end self-center" <?php echo $field ?> type="checkbox" name="units[]" value="<?php echo $unitId ?>" id="<?php echo "unit_$count" ?>" <?php if ($isChecked) echo "checked"; ?> />
-                                </div>
-                                <?php
-                            }
-                            if($count > 0){
-                                ?>
-                                <div class="border rounded-xl bg-red-200 flex">
-                                <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                                        width="40px" height="40px" viewBox="0 0 45.311 45.311"
-                                        xml:space="preserve" class="p-2">
-                                    <g>
-                                        <path d="M22.675,0.02c-0.006,0-0.014,0.001-0.02,0.001c-0.007,0-0.013-0.001-0.02-0.001C10.135,0.02,0,10.154,0,22.656
-                                            c0,12.5,10.135,22.635,22.635,22.635c0.007,0,0.013,0,0.02,0c0.006,0,0.014,0,0.02,0c12.5,0,22.635-10.135,22.635-22.635
-                                            C45.311,10.154,35.176,0.02,22.675,0.02z M22.675,38.811c-0.006,0-0.014-0.001-0.02-0.001c-0.007,0-0.013,0.001-0.02,0.001
-                                            c-2.046,0-3.705-1.658-3.705-3.705c0-2.045,1.659-3.703,3.705-3.703c0.007,0,0.013,0,0.02,0c0.006,0,0.014,0,0.02,0
-                                            c2.045,0,3.706,1.658,3.706,3.703C26.381,37.152,24.723,38.811,22.675,38.811z M27.988,10.578
-                                            c-0.242,3.697-1.932,14.692-1.932,14.692c0,1.854-1.519,3.356-3.373,3.356c-0.01,0-0.02,0-0.029,0c-0.009,0-0.02,0-0.029,0
-                                            c-1.853,0-3.372-1.504-3.372-3.356c0,0-1.689-10.995-1.931-14.692C17.202,8.727,18.62,5.29,22.626,5.29
-                                            c0.01,0,0.02,0.001,0.029,0.001c0.009,0,0.019-0.001,0.029-0.001C26.689,5.29,28.109,8.727,27.988,10.578z"/>
-                                    </g>
-                                </svg>
-                                    <p class="font-bold text-sm p-2 mx-2">Notice: You don't have the required 80% attendance to participate in this course unit.</p>
-                                </div>
-                            
-                            <?php
-                            }
-                            ?>
-
-                            <div class="w-full flex items-center justify-around mt-5">
-                                <input class="btn outline-btn w-5/12" type="submit" name="submit" value="&lt; Back" />
-                                <input class="btn fill-btn w-5/12" type="submit" name="submit" value="<?php echo ($_POST['type'] == 'repeat')?'Next &gt;':'Submit'?>" />
-                            </div>
-                        </form>
-                    </div>
-                <?php }
-
-
-                function displayStep3() {
+function displayStep3() {
                     global $examUnitId, $_POST, $slip_msg;
                     if(isset($_POST['units']))
                         $selectedUnits = $_POST['units'];
