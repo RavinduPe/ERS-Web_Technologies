@@ -93,10 +93,26 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
     <script
     src="https://kit.fontawesome.com/5ce4b972fd.js"
     crossorigin="anonymous"></script>
+
+    <!-- <script>
+        document.onload = function(){
+            let theme = localStorage.getItem('theme');
+            document.documentElement.classList.toggle(theme);
+            console.log(document.documentElement.classList);
+        }
+
+        document.addEventListener("DOMContentLoaded", function(){
+            let theme = localStorage.getItem('theme');
+            document.documentElement.classList.toggle(theme);
+            console.log(document.documentElement.classList);
+        });
+    </script> -->
+
+
 </head>
-<body class=" bg-gray-50 sm:text-xs xl:text-sm 2xl:text-base" id="student">
+<body class=" bg-gray-50 sm:text-xs xl:text-sm 2xl:text-base text-black dark:bg-gray-700 dark:text-white" id="student">
     <!-- //Navbar -->
-    <nav class="w-full h-[15vh] min-h-fit drop-shadow-md bg-white fixed top-0 left-0">
+    <nav class="w-full h-[15vh] min-h-fit drop-shadow-md bg-white fixed top-0 left-0  text-black dark:bg-gray-900 dark:text-white">
         <div class="w-10/12 h-full m-auto flex items-center justify-between">
             <a href="index.php">
                 <img src="../assets/img/logo/ERS_logo.gif" alt="logo" class="w-28 align-middle">
@@ -104,14 +120,25 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
             <ul class="flex items-center justify-around gap-10">
                 <li><a id = "reg_button" href="exam_reg.php" class="hidden btn outline-btn md:block">Exam Registration</a></li>
                 <li>
-                <label for="languageSwitcher" class="block text-lg font-semibold mb-2">Choose Language:</label>
-                <select id="languageSwitcher" class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500">
+                <label for="languageSwitcher" class="block text-lg font-semibold mb-2 ">Choose Language:</label>
+                <select id="languageSwitcher" class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 bg-white text-black dark:bg-gray-800 dark:text-white">
                     <option value="en">English</option>
                     <option value="sin">සිංහල</option>
                     <option value="tam">தமிழ்</option>
                     <!-- Add more languages as needed -->
                 </select>
                 </li>
+                <!-- <li>
+                <button onclick="toggleDarkMode()">Toggle Dark Mode</button>    
+                    <script>
+                        function toggleDarkMode() {
+                            localStorage.setItem('theme' , document.documentElement.classList );
+                            document.documentElement.classList.toggle('dark');
+                            console.log("asdsad" , document.documentElement.classList); // Should show "dark" in the console when toggled on
+                        }
+
+                    </script>
+                </li> -->
 
 
                 <?php if (!isset($profile_img)) { ?>
@@ -127,7 +154,7 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
             </ul>
                        
         </div>
-        <div class="hidden top-[14.8vh] right-0 h-56 w-full bg-white -translate-y-full z-20 transition-transform lg:top-[16vh] lg:drop-shadow-2xl lg:right-24 lg:w-56 lg:translate-x-full lg:h-72 lg:rounded-tl-3xl lg:rounded-br-3xl lg:text-gray-800" id="user-menu">
+        <div class="hidden top-[14.8vh] right-0 h-56 w-full bg-white -translate-y-full z-20 transition-transform lg:top-[16vh] lg:drop-shadow-2xl lg:right-24 lg:w-56 lg:translate-x-full lg:h-72 lg:rounded-tl-3xl lg:rounded-br-3xl lg:text-gray-800 text-black dark:bg-gray-800 dark:text-white" id="user-menu">
             <ul class="w-11/12 h-full m-auto flex flex-col items-center justify-around text-center">
                 <li class="mt-3 "><a class="py-4 hover:text-blue-600 hover:font-bold hover:tracking-wide transition-all" href="exam_reg.php">Exam Registration</a></li>
                 <div class="h-px w-3/4 bg-gray-300"></div>
@@ -142,15 +169,15 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
 
     <!-- Displaying Notification -->
     <?php if (isset($_GET['error'])) { ?>
-        <div class="exam-false fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7" action="index.php" method="POST">
+        <div class="exam-false fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center  text-black dark:bg-gray-800 dark:text-white">
+            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7 bg-white text-black dark:bg-gray-700 dark:text-white" action="index.php" method="POST">
                 <p class="text-center"><?php echo $_GET['error'] ?></p>
                 <input class="btn fill-btn" type="submit" value="OK" name="ok">
             </form>
         </div>
     <?php } elseif (isset($_GET['success'])) { ?>
-        <div class="exam-false fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7" action="index.php" method="POST">
+        <div class="exam-false fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center  text-black dark:bg-gray-800 dark:text-white">
+            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7 bg-white text-black dark:bg-gray-700 dark:text-white" action="index.php" method="POST">
                 <p class="text-center text-green-700"><?php echo $_GET['success'] ?></p>
                 <input class="btn fill-btn !bg-green-700" type="submit" value="OK" name="ok">
             </form>
@@ -161,25 +188,25 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
     <div class="body-sec my-[20vh]">
         <div class="container m-auto ">
             <div class = "flex gap-4 flex-col lg:flex-row">
-            <div class="card w-11/12 m-auto grid grid-rows-[30%_70%] lg:grid-cols-[30%_1%_69%] lg:w-7/12 shadow-lg rounded-lg overflow-hidden bg-white p-5">
-                <div class="profile text-center flex flex-col items-center justify-around lg:justify-center lg:h-[430px]">
+            <div class="card w-11/12 m-auto grid grid-rows-[30%_70%] lg:grid-cols-[30%_1%_69%] lg:w-7/12 shadow-lg rounded-lg overflow-hidden bg-white p-5  text-black dark:bg-gray-800 dark:text-white">
+                <div class="profile text-center flex flex-col items-center justify-around lg:justify-center lg:h-[430px] bg-white text-black dark:bg-gray-800 dark:text-white ">
                     <?php if (!isset($_GET['update'])) { ?>
                         <img class="mx-auto mb-5 w-[125px] h-[125px] rounded-full ring-4 ring-offset-4 ring-[#5465ff]" src="../assets/uploads/<?php echo $profile_img; ?>" alt="user img">
-                        <h3 class="font-semibold text-xl text-gray-700"><?php echo "$title. $nameWithInitial"; ?></h3>
-                        <p class="text-sm text-gray-500"><?php echo $email; ?></p>
-                        <h4 class="text-sm text-gray-500"><?php echo $regNo; ?></h4>
+                        <h3 class="font-semibold text-xl text-gray-700 bg-white dark:bg-gray-800 dark:text-white"><?php echo "$title. $nameWithInitial"; ?></h3>
+                        <p class="text-sm text-gray-500 bg-white dark:bg-gray-800 dark:text-white"><?php echo $email; ?></p>
+                        <h4 class="text-sm text-gray-500 bg-white dark:bg-gray-800 dark:text-white"><?php echo $regNo; ?></h4>
                     <?php } else { ?>
-                        <form action="index.php" method="POST" enctype="multipart/form-data" class="w-full flex flex-col items-center space-y-4">
+                        <form action="index.php" method="POST" enctype="multipart/form-data" class="w-full flex flex-col items-center space-y-4 ">
                             <img class="mx-auto mb-5 w-[125px] h-[125px] rounded-full ring-4 ring-offset-4 ring-[#5465ff]" src="../assets/uploads/<?php echo $profile_img; ?>" alt="user img">
                             <input type="file" name="fileImg" id="fileImg" accept=".jpg, .jpeg, .png" class="w-10/12 mt-5 file:cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-[#5465ff] hover:file:bg-violet-100">
                     <?php } ?>
                 </div>
-                <div class="line hidden lg:block lg:w-px lg:h-[430px] bg-gray-200"></div>
-                <div class="student-details mt-5 w-full lg:w-10/12 lg:mt-0 lg:h-fit text-sm lg:text-base text-gray-700">
+                <div class="line hidden lg:block lg:w-px lg:h-[430px] bg-gray-200 "></div>
+                <div class="student-details mt-5 w-full lg:w-10/12 lg:mt-0 lg:h-fit text-sm lg:text-base text-gray-700  ">
                     <?php if (isset($_GET['update'])) { ?>
-                        <div class="mt-4 w-full h-full flex flex-col items-center justify-around lg:mt-0 lg:h-[750px] space-y-4">
-                            <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4">
-                                <label id="titletr" class="hidden lg:block" for="title">Title: <span class="text-red-500">*</span></label>
+                        <div class="mt-4 w-full h-full flex flex-col items-center justify-around lg:mt-0 lg:h-[750px] space-y-4 ">
+                            <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4 ">
+                                <label id="titletr" class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="title">Title: <span class="text-red-500">*</span></label>
                                 <select name="title" id="title" class="inputs w-full border-2 border-gray-400 rounded-full px-5 py-2 outline-none focus:border-blue-500">
                                     <option value="" selected disabled>Select Title</option>
                                     <option value="Mr" <?php echo ("Mr" == $title) ? "selected" : ""; ?> >Mr</option>
@@ -190,22 +217,22 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                             </div>
                             
                             <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4">
-                                <label id="fullnametr" class="hidden lg:block" for="fname">Full Name:</label>
+                                <label id="fullnametr" class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="fname">Full Name:</label>
                                 <input class="inputs lg:placeholder:text-transparent w-full border-2 border-gray-400 rounded-full px-5 py-2 outline-none focus:border-blue-500" type="text" id="fname" name="fname" value="<?php echo $fullName; ?>" placeholder="Full Name" required>
                             </div>
 
                             <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4">
-                                <label id="nameWithInitialtr" class="hidden lg:block" for="nameWithInitial">Name With Initials: <span class="text-red-500">*</span></label>
+                                <label id="nameWithInitialtr" class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="nameWithInitial">Name With Initials: <span class="text-red-500">*</span></label>
                                 <input class="inputs lg:placeholder:text-transparent w-full border-2 border-gray-400 rounded-full px-5 py-2 outline-none focus:border-blue-500" type="text" id="nameWithInitial" name="nameWithInitial" value="<?php echo $nameWithInitial; ?>" placeholder="Name with Initial" required>
                             </div>
 
                             <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4">
-                                <label id="regNotr" class="hidden lg:block" for="regNo">Registration Number:</label>
+                                <label id="regNotr" class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="regNo">Registration Number:</label>
                                 <input class="inputs lg:placeholder:text-transparent w-full border-2 border-gray-400 rounded-full px-5 py-2 outline-none" type="text" id="regNo" name="regNo" value="<?php echo $regNo; ?>" placeholder="Registration Number" required disabled>
                             </div>
 
                             <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4">
-                                <label id="districttr" class="hidden lg:block" for="district">District: <span class="text-red-500">*</span></label>
+                                <label id="districttr" class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="district">District: <span class="text-red-500">*</span></label>
                                 <select class="inputs lg:placeholder:text-transparent w-full border-2 border-gray-400 rounded-full px-5 py-2 outline-none focus:border-blue-500" name="userDistrict" id="district" required>
                                     <?php foreach ($districts as $district) { ?>
                                         <option value="<?php echo $district; ?>" <?php if ($district == $userDistrict) { echo "selected"; } ?>><?php echo $district; ?></option>
@@ -214,22 +241,22 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                             </div>
 
                             <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4">
-                                <label id="mobileNotr" class="hidden lg:block" for="mobileNo">Mobile: <span class="text-red-500">*</span></label>
+                                <label id="mobileNotr" class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="mobileNo">Mobile: <span class="text-red-500">*</span></label>
                                 <input class="inputs lg:placeholder:text-transparent w-full border-2 border-gray-400 rounded-full px-5 py-2 outline-none focus:border-blue-500" type="tel" id="mobileNo" name="mobileNo" value="<?php echo $mobileNo; ?>" placeholder="Mobile Number" required>
                             </div>
 
                             <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4">
-                                <label id="landlineNotr" class="hidden lg:block" for="landlineNo">Landline: <span class="text-red-500">*</span></label>
+                                <label id="landlineNotr" class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="landlineNo">Landline: <span class="text-red-500">*</span></label>
                                 <input class="inputs lg:placeholder:text-transparent w-full border-2 border-gray-400 rounded-full px-5 py-2 outline-none focus:border-blue-500" type="text" id="landlineNo" name="landlineNo" value="<?php echo $landlineNo; ?>" placeholder="Landline Number" required>
                             </div>
 
                             <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4">
-                                <label id="home_addresstr" class="hidden lg:block" for="home_address">Home Address: <span class="text-red-500">*</span></label>
+                                <label id="home_addresstr" class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="home_address">Home Address: <span class="text-red-500">*</span></label>
                                 <textarea class="inputs lg:placeholder:text-transparent w-full border-2 border-gray-400 rounded-lg px-5 py-2 outline-none focus:border-blue-500" id="home_address" name="home_address" rows="3" placeholder="Home Address" required><?php echo $home_address; ?></textarea>
                             </div>
 
                             <div class="detail-row w-full lg:grid lg:grid-cols-2 lg:gap-4">
-                                <label id="jaffna_addresstr" class="hidden lg:block" for="jaffna_address">Current Address: <span class="text-red-500">*</span></label>
+                                <label id="jaffna_addresstr" class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="jaffna_address">Current Address: <span class="text-red-500">*</span></label>
                                 <textarea class="inputs lg:placeholder:text-transparent w-full border-2 border-gray-400 rounded-lg px-5 py-2 outline-none focus:border-blue-500" id="jaffna_address" name="jaffna_address" rows="3" placeholder="Current Address" required><?php echo $jaffna_address; ?></textarea>
                             </div>
 
@@ -240,25 +267,25 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                         <?php if (isset($errors['update-error'])) { ?>
                             <p class="error-text text-red-500 text-center"><?php echo $errors['update-error'] ?></p>
                         <?php } ?>
-                        <div class="mt-4 w-full h-full flex flex-col items-center space-y-4 lg:h-[430px]">
+                        <div class="mt-4 w-full h-full flex flex-col items-center space-y-4 lg:h-[430px] bg-white text-black dark:bg-gray-800 dark:text-white">
                             <div class="detail-row text-center">
-                                <h5 id="fullnametr" class="font-semibold text-gray-700">Full Name:</h5>
+                                <h5 id="fullnametr" class="font-semibold text-gray-700 bg-white  dark:bg-gray-800 dark:text-white">Full Name:</h5>
                                 <p><?php echo "$title. $fullName"; ?></p>
                             </div>
                             <div class="detail-row text-center">
-                                <h5 id="districttr" class="font-semibold text-gray-700">District:</h5>
+                                <h5 id="districttr" class="font-semibold text-gray-700 bg-white  dark:bg-gray-800 dark:text-white">District:</h5>
                                 <p><?php echo $userDistrict; ?></p>
                             </div>
                             <div class="detail-row text-center">
-                                <h5 id="mobileNotr" class="font-semibold text-gray-700">Mobile:</h5>
+                                <h5 id="mobileNotr" class="font-semibold text-gray-700 bg-white  dark:bg-gray-800 dark:text-white">Mobile:</h5>
                                 <p><?php echo $mobileNo; ?></p>
                             </div>
                             <div class="detail-row text-center">
-                                <h5 id="landlineNotr" class="font-semibold text-gray-700">Landline:</h5>
+                                <h5 id="landlineNotr" class="font-semibold text-gray-700 bg-white  dark:bg-gray-800 dark:text-white">Landline:</h5>
                                 <p><?php echo $landlineNo; ?></p>
                             </div>
                             <div class="detail-row text-center">
-                                <h5 id="jaffna_addresstr" class="font-semibold text-gray-700">Current Address:</h5>
+                                <h5 id="jaffna_addresstr" class="font-semibold text-gray-700 bg-white  dark:bg-gray-800 dark:text-white">Current Address:</h5>
                                 <p><?php echo $jaffna_address; ?></p>
                             </div>
 
@@ -268,7 +295,7 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                 </div>
             </div>
 
-            <div class="card w-11/12 lg:w-5/12 mx-auto p-6 bg-white shadow-lg rounded-lg grid grid-rows-[30%_70%] items-center h-500px">
+            <div class="card w-11/12 lg:w-5/12 mx-auto p-6 bg-white shadow-lg rounded-lg grid grid-rows-[30%_70%] items-center h-500px text-black dark:bg-gray-800 dark:text-white">
             <!-- TODO update query -->
             <?php
                 // SQL query to join exam_reg_excep, exam_reg, and exam_stud_index
@@ -315,12 +342,12 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                         echo "<tbody class='text-gray-700'>";
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr class='hover:bg-gray-100'>";
-                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center'>" . htmlspecialchars($row['academic_year']) . "</td>";
-                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center'>" . htmlspecialchars($row['type']) . "</td>";
-                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center'>" . htmlspecialchars($row['level']) . "</td>";
-                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center'>" . htmlspecialchars($row['semester']) . "</td>";
-                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center'>" . htmlspecialchars($row['date_created']) . "</td>";
-                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center'>" . htmlspecialchars($row['closing_date']) . "</td>";
+                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center bg-white text-black dark:bg-gray-800 dark:text-white'>" . htmlspecialchars($row['academic_year']) . "</td>";
+                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center bg-white text-black dark:bg-gray-800 dark:text-white'>" . htmlspecialchars($row['type']) . "</td>";
+                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center bg-white text-black dark:bg-gray-800 dark:text-white'>" . htmlspecialchars($row['level']) . "</td>";
+                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center bg-white text-black dark:bg-gray-800 dark:text-white'>" . htmlspecialchars($row['semester']) . "</td>";
+                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center bg-white text-black dark:bg-gray-800 dark:text-white'>" . htmlspecialchars($row['date_created']) . "</td>";
+                            echo "<td class='py-4 px-6 border-b border-gray-200 text-center bg-white text-black dark:bg-gray-800 dark:text-white'>" . htmlspecialchars($row['closing_date']) . "</td>";
                             echo "</tr>";
                         }
                         echo "</tbody>";
@@ -357,12 +384,12 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                 $exreg = (mysqli_num_rows($examDetails) != 0);
 
                 ?>
-                <div class="card mt-32 w-11/12 mx-auto flex flex-col items-center overflow-hidden">
-                    <h2 id = "title-exhist" class="font-extrabold text-center underline text-xl">Exam History</h2>
+                <div class="card mt-32 w-11/12 mx-auto flex flex-col items-center overflow-hidden bg-white text-black dark:bg-gray-800 dark:text-white">
+                    <h2 id = "title-exhist" class="font-extrabold text-center underline text-xl bg-white text-black dark:bg-gray-800 dark:text-white">Exam History</h2>
                     <div class="w-full mx-auto mt-8 overflow-x-hidden">
-                        <div class="w-full overflow-x-scroll lg:overflow-x-visible">
-                            <table class="w-full lg:w-11/12 mx-auto rounded-lg text-xs lg:text-base">
-                                <thead class="bg-blue-100 h-6 lg:h-12">
+                        <div class="w-full overflow-x-scroll lg:overflow-x-visible ">
+                            <table class="w-full lg:w-11/12 mx-auto rounded-lg text-xs lg:text-base ">
+                                <thead class="bg-blue-100 h-6 lg:h-12  text-black dark:bg-gray-800 dark:text-white">
                                     <th id = "datetr" class="font-semibold px-3 w-36">Date</th>
                                     <th id = "typetr" class="font-semibold px-3 border-gray-100 border-x-2">Type</th>
                                     <th id = "leveltr" class="font-semibold px-3 border-gray-100 border-x-2">Level</th>

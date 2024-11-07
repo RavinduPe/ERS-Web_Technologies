@@ -44,7 +44,7 @@ if (isset($_POST['unit_subjects'])) {
 
 <div class="flex flex-col items-center justify-around gap-5">
     <h1 class="title">Subject Selection Form</h1>
-    <h4 class="text-gray-800">Exam : <?php echo $curExam['academic_year'] . " semester" . $curExam['semester']; ?></h4>
+    
 
     <?php
     if (isset($msg['error'])) {
@@ -57,7 +57,19 @@ if (isset($_POST['unit_subjects'])) {
     ?>
 
     <form id="assignment-form" action="" method="POST" class="flex flex-col items-center gap-5 mt-5">
-        <input type="hidden" name="exam_id" id="exam_id" value="<?php echo $curExam['exam_id'] ?>">
+        <div class="w-full grid grid-cols-3 gap-4 items-center h-8">
+            <label for="exam_id">Select Exam:</label>
+            <select id="exam_id" name="exam_id" class="col-span-2 w-full h-full border border-gray-400 rounded-full px-5 outline-none focus:border-blue-500">
+                <option value="" disabled selected>Select Exam</option>
+                
+                <?php foreach ($curExam as $exam) { ?>
+                    <option value="<?php echo $exam['exam_id']; ?>">
+                        <?php echo $exam['academic_year'] . " - Semester " . $exam['semester']; ?>
+                    </option>
+                <?php } ?>
+            </select>
+        <div id="selectedExamDisplay"></div> <!-- Div to display the selected value -->
+        </div>
         <!-- Part 1: Selection -->
         <div class="w-full grid grid-cols-3 gap-4 items-center h-8">
             <label for="level">Select Level:</label>
@@ -117,7 +129,14 @@ if (isset($_POST['unit_subjects'])) {
             var currentUnitDropdowns = 0; // Track the current number of unit dropdowns
             var maxUnitDropdowns = 0; // Store the maximum number of unit dropdowns based on available units
 
-            var exam_id = document.getElementById("exam_id").value; // Get the exam_id
+            var exam_id ; // Get the exam_id
+            // Get the select element
+            var examSelect = document.getElementById("exam_id");
+            // Add an event listener to capture the change event
+            examSelect.addEventListener("change", function() {
+                // Get the selected value
+                var exam_id = examSelect.value;
+            });
 
             var subjectsData = [];
             var unitsData = [];
@@ -227,36 +246,53 @@ if (isset($_POST['unit_subjects'])) {
 
             // Function to fetch already assigned units
             function fetchAssignedUnits() {
+                const exam_id = document.getElementById("exam_id").value;
                 var selectedSubject = document.getElementById("subject").value;
                 var selectedLevel = document.getElementById("level").value;
                 var selectedType = document.getElementById("type").value;
 
+                // Ensure that all required fields are selected before making the request
+                if (!selectedSubject || !selectedLevel || !selectedType) {
+                    messageDiv.textContent = "Please select a subject, level, and type.";
+                    return;
+                }
+
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "subjectAdmin/assignUnits/get_assigned_units.php", false);
+                xhr.open("POST", "subjectAdmin/assignUnits/get_assigned_units.php", true); // Use async request
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        var assignedUnits = JSON.parse(xhr.responseText);
-                        if (assignedUnits.length > 0) {
-                            // Units are already assigned, generate dropdowns
-                            unitAssignmentContainer.style.display = "block";
-                            addAssignedUnitDropdowns(assignedUnits);
-                            // Display a message
-                            messageDiv.textContent = "Existing assigned units found.";
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            var assignedUnits = JSON.parse(xhr.responseText);
+                            if (assignedUnits.length > 0) {
+                                // Units are already assigned, generate dropdowns
+                                unitAssignmentContainer.style.display = "block";
+                                unitAssignment.innerHTML = ""; // Clear existing dropdowns
+                                currentUnitDropdowns = 0; // Reset the current count
+                                assignedUnits.forEach(unit => {
+                                    addUnitDropdown(unit.unitId); // Pass the unitId to pre-select
+                                });
+                                messageDiv.textContent = "Existing assigned units found.";
+                            } else {
+                                // If no units are found, notify the user
+                                unitAssignmentContainer.style.display = "display"; // Hide the container if no units are found
+                                messageDiv.textContent = "No assigned units found.";
+                            }
+                        } else {
+                            // Handle HTTP errors
+                            messageDiv.textContent = "Error fetching assigned units: " + xhr.statusText;
                         }
                     }
                 };
 
-                var formData = "exam_id=" + exam_id + "&subject=" + selectedSubject + "&level=" + selectedLevel + "&type=" + selectedType;
-                xhr.send(formData);
-            }
+            // Prepare form data
+                var formData = "exam_id=" + encodeURIComponent(exam_id) + 
+                            "&subject=" + encodeURIComponent(selectedSubject) + 
+                            "&level=" + encodeURIComponent(selectedLevel) + 
+                            "&type=" + encodeURIComponent(selectedType)
 
             // Function to add assigned unit dropdowns
-            function addAssignedUnitDropdowns(assignedUnits) {
-                for (var i = 0; i < assignedUnits.length; i++) {
-                    var unitId = assignedUnits[i].unitId;
-                    addUnitDropdown(unitId);
-                }
+                xhr.send(formData);
             }
 
             // Function to fetch units data from the server
@@ -265,7 +301,7 @@ if (isset($_POST['unit_subjects'])) {
                 var selectedLevel = document.getElementById("level").value;
 
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "subjectAdmin/assignUnits/get_units.php", false);
+                xhr.open("POST", "subjectAdmin/assignUnits/get_units.php", true); // Use async request
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {

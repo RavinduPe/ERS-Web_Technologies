@@ -153,17 +153,17 @@ function setSelected($fieldName, $fieldValue) {
     </script>
 
 </head>
-<body class="bg-slate-200" id="exam">
+<body class="bg-slate-200 dark:bg-gray-700 dark:text-white" id="exam">
     <?php if (isset($_GET['error'])) { ?>
         <div class="exam-false fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7" action="index.php" method="POST">
+            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7 bg-white text-black dark:bg-gray-800 dark:text-white" action="index.php" method="POST">
                 <p class="text-center"><?php echo $_GET['error'] ?></p>
                 <input class="btn fill-btn" type="submit" value="OK" name="ok">
             </form>
         </div>
     <?php } elseif (isset($_GET['success'])) { ?>
         <div class="exam-false fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7" action="index.php" method="POST">
+            <form class="card h-40 w-10/12 lg:w-1/2 flex flex-col items-center justify-around gap-7 bg-white text-black dark:bg-gray-800 dark:text-white" action="index.php" method="POST">
                 <p class="text-center text-green-700"><?php echo $_GET['success'] ?></p>
                 <input class="btn fill-btn !bg-green-700" type="submit" value="OK" name="ok">
             </form>
@@ -171,25 +171,34 @@ function setSelected($fieldName, $fieldValue) {
     <?php } ?>
 
 
-    <nav class="w-full h-[15vh] min-h-fit drop-shadow-md bg-white fixed top-0 left-0">
+    <nav class="w-full h-[15vh] min-h-fit drop-shadow-md bg-white fixed top-0 left-0 text-black dark:bg-gray-900 dark:text-white">
         <div class="w-10/12 h-full m-auto flex items-center justify-between">
             <a href="index.php">
                 <img src="../assets/img/logo/ERS_logo.gif" alt="logo" class="w-28 align-middle">
             </a>
-            <ul>
+            <ul class="flex flex-row items-center space-x-4">
                 <?php if (!isset($profile_img)) { ?>
                     <li onclick="openMenu()" class="py-2 px-[14px] bg-[var(--primary)] rounded-full drop-shadow-md cursor-pointer lh:relative">
                         <i class="fa-solid fa-user text-2xl text-[#dfeaff]"></i>
                     </li>
                 <?php } else { ?>
-                    <li onclick="openMenu()" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full drop-shadow-md cursor-pointer ring-4">
+                    <li>
+                        <label for="languageSwitcher" class="block text-lg font-semibold mb-2 text-gray-700 hover:text-blue-700 transition duration-300 ease-in-out dark:bg-gray-900 dark:text-white">Choose Language:</label>
+                        <select id="languageSwitcher" class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 hover:border-blue-700 transition duration-300 ease-in-out dark:bg-gray-900 dark:text-white">
+                            <option value="en">English</option>
+                            <option value="sin">සිංහල</option>
+                            <option value="tam">தமிழ்</option>
+                        </select>
+                    </li>
+                    <li onclick="openMenu()" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full drop-shadow-md cursor-pointer ring-4 ring-blue-500 hover:ring-blue-700 transition duration-300 ease-in-out transform hover:scale-105">
                         <img src="../assets/uploads/<?php echo $profile_img; ?>" alt="user img" class="w-full h-full rounded-full">
                     </div>
+                </li>
                 <?php } ?>
             </ul>
 
         </div>
-        <div class="hidden top-[14.8vh] right-0 h-56 w-full bg-white -translate-y-full z-20 transition-transform lg:top-[16vh] lg:drop-shadow-2xl lg:right-24 lg:w-56 lg:translate-x-full lg:h-72 lg:rounded-tl-3xl lg:rounded-br-3xl lg:text-gray-800" id="user-menu">
+        <div class="hidden top-[14.8vh] right-0 h-56 w-full bg-white -translate-y-full z-20 transition-transform lg:top-[16vh] lg:drop-shadow-2xl lg:right-24 lg:w-56 lg:translate-x-full lg:h-72 lg:rounded-tl-3xl lg:rounded-br-3xl lg:text-gray-800 text-black dark:bg-gray-800 dark:text-white" id="user-menu">
             <ul class="w-11/12 h-full m-auto flex flex-col items-center justify-around text-center">
                 <li class="mt-3 "><a class="py-4 hover:text-blue-600 hover:font-bold hover:tracking-wide transition-all" href="exam_reg.php">Exam Registration</a></li>
                 <div class="h-px w-3/4 bg-gray-300"></div>
@@ -202,9 +211,9 @@ function setSelected($fieldName, $fieldValue) {
         </div>
     </nav>
 
-    <div class="w-11/12 lg:w-1/2 mx-auto mt-[22vh] mb-20">
-        <div class="card ">
-            <div class="w-11/12 mx-auto h-fit">
+    <div class="w-11/12 lg:w-1/2 mx-auto mt-[22vh] mb-20 dark:bg-gray-800 dark:text-white ">
+        <div class="card bg-white text-black dark:bg-gray-800 dark:text-white">
+            <div class="w-11/12 mx-auto h-fit dark:bg-gray-800 dark:text-white ">
 
                 <?php
                 if (isset($_POST["step"])) {
@@ -566,44 +575,45 @@ function setSelected($fieldName, $fieldValue) {
                     }else
                         $selectedUnits = array();
                     ?>
-                    <h1 class="text-lg font-black text-center underline mt-5 text-gray-800 lg:text-2xl">Exam Registration</h1>
+                    <h1 id = "reg_button" class="text-lg font-black text-center underline mt-5 text-gray-800 lg:text-2xl bg-white dark:bg-gray-800 dark:text-white">Exam Registration</h1>
 
-                    <div class="instructions mt-7 mb-16">
-                        <p class="font-bold">Read the following instructions carefully before filling this form ------ &gt; &gt; &gt;</p>
+                    <div class="instructions mt-7 mb-16 bg-white text-black dark:bg-gray-800 dark:text-white">
+                        <p id="text01" class="font-bold">Read the following instructions carefully before filling this form ------ &gt; &gt; &gt;</p>
                         <ol class="ml-4 lg:ml-7 my-4 list-decimal text-justify">
-                            <li>Students are advised to use either an individual smartphone or personal computer to avoid technical errors.</li>
-                            <li>Only one record will be accepted per email ID</li>
-                            <li>If you provide any incorrect information, you will be barred from sitting the examination</li>
+                            <li id="text02">Students are advised to use either an individual smartphone or personal computer to avoid technical errors.</li>
+                            <li id="text03">Only one record will be accepted per email ID</li>
+                            <li id="text04">If you provide any incorrect information, you will be barred from sitting the examination</li>
                         </ol>
                         <hr>
                         <br>
-                        <p class="ml-0 lg:ml-2 font-semibold">The following instructions are for the repeat candidates</p>
+                        <p id="text05" class="ml-0 lg:ml-2 font-semibold">The following instructions are for the repeat candidates</p>
                         <ol class="ml-4 lg:ml-7 my-4 list-decimal text-justify space-y-4">
-                            <li>
+                            <li id="text06">
                                 Candidates who are repeating the exam  can pay the exam fees using the <b>normal Deposit Slip</b> available in the <b><u>Peoples Bank</u>. Reference No/Account No - 480000022100084</b>
-                                <br><br><b>Exam Fees:</b>
+                            </li>
+                                <br><br><b id="text07">Exam Fees:</b>
                                 <ul class="ml-4 lg:ml-7 list-decimal text-justify">
-                                    <li class="font-semibold">Theory and Practical of a course unit - Rs. 250/=</li>
-                                    <li class="font-semibold">Theory or Practical of a course unit - Rs. 250/=</li>
+                                    <li id="text08" class="font-semibold">Theory and Practical of a course unit - Rs. 250/=</li>
+                                    <li id="text09" class="font-semibold">Theory or Practical of a course unit - Rs. 250/=</li>
                                 </ul>
                                 <br>
-                                <b class="font-bold"><u>NOTE:</u></b><br>
+                                <b class="font-bold"><u id="text10">NOTE:</u></b><br>
                                 <ul class="ml-4 lg:ml-7 my-1 list-decimal text-justify">
-                                    <li class="font-semibold">Please write the following details in the back side of the Deposit Slip: <br> 1. Full Name  2. Reg. No.   3. Level of Repeat Exam   4. Applied course units</li>
-                                    <li class="font-semibold">You need to include both sides of the Deposit Slip in a single PDF file and attach that PDF file. (Only one PDF file is allowed)</li>
-                                    <li class="font-semibold">Original Deposit Slip should be handover to the Dean's office</li>
+                                    <li id="text11" class="font-semibold">Please write the following details in the back side of the Deposit Slip: <br> 1. Full Name  2. Reg. No.   3. Level of Repeat Exam   4. Applied course units</li>
+                                    <li id="text12" class="font-semibold">You need to include both sides of the Deposit Slip in a single PDF file and attach that PDF file. (Only one PDF file is allowed)</li>
+                                    <li id="text13" class="font-semibold">Original Deposit Slip should be handover to the Dean's office</li>
                                 </ul>
                             </li>
-                            <li>Those who had submitted Medical  Certificate for not sitting the ECEs last year, should also pay Rs. 250/- per course unit</li>
-                            <li>Original Payment Voucher should be submitted to the Dean's Office </li>
+                            <li  id="text14">Those who had submitted Medical  Certificate for not sitting the ECEs last year, should also pay Rs. 250/- per course unit</li>
+                            <li  id="text15">Original Payment Voucher should be submitted to the Dean's Office </li>
                         </ol>
 
-                        <p>If you have any questions, feel free to contact us at using contact us option in this website.</p>
-                        <p class="text-right mt-5">Assistant Registrar<br>FACULTY OF SCIENCE</p>
+                        <p id="text16">If you have any questions, feel free to contact us at using contact us option in this website.</p>
+                        <p id="text17" class="text-right mt-5">Assistant Registrar<br>FACULTY OF SCIENCE</p>
                     </div>
-                    <div class="w-11/12 mx-auto">
-                        <h3 class="font-bold lg:text-xl text-center text-gray-800">Personal Details</h3>
-                        <form action="exam_reg.php" method="POST" class="mt-10 h-[350px] flex flex-col justify-around" id="examForm">
+                    <div class="w-11/12 mx-auto bg-white text-black dark:bg-gray-800 dark:text-white">
+                        <h3 id="perdetaitr" class="font-bold lg:text-xl text-center text-gray-800">Personal Details</h3>
+                        <form action="exam_reg.php" method="POST" class="mt-10 h-[350px] flex flex-col justify-around dark:bg-gray-800 dark:text-white" id="examForm">
                             <input type="hidden" name="step" value="1" />
                             <?php if(isset($_POST['regId'])) {
                                 echo "<input type='hiddestepn' name='regId' value='" . $_POST['regId'] . "' />\n";
@@ -615,12 +625,12 @@ function setSelected($fieldName, $fieldValue) {
                                 <input type="hidden" name="units[]" value="<?php echo $unitId; ?>" />
                             <?php } ?>
                             <div class="detail-row  my-1 !block lg:!grid !w-full">
-                                <label class="hidden lg:block" for="indexNo">Index Number: <span class="text-red-500">*</span></label>
-                                <input class="inputs tracking-wider disabled:opacity-60" type="text" name="indexNo" value="<?php echo $indexNo ?>" disabled />
+                                <label class="hidden lg:block " for="indexNo">Index Number: <span class="text-red-500">*</span></label>
+                                <input class="inputs tracking-wider disabled:opacity-60 bg-white text-black dark:bg-gray-800 dark:text-white" type="text" name="indexNo" value="<?php echo $indexNo ?>" disabled />
                             </div>
                             <div class="detail-row  my-1 !block lg:!grid !w-full">
-                                <label class="hidden lg:block" for="type">Type: <span class="text-red-500">*</span></label>
-                                <select class="inputs" id="type" name="type"  required  <?php if(isset($_POST['regId'])) echo "disabled";?>>
+                                <label class="hidden lg:block bg-white text-black dark:bg-gray-800 dark:text-white" for="type">Type: <span class="text-red-500">*</span></label>
+                                <select class="inputs bg-white text-black dark:bg-gray-800 dark:text-white" id="type" name="type"  required  <?php if(isset($_POST['regId'])) echo "disabled";?>>
                                     <option value="select" <?php setSelected('type', 'select') ?> disabled selected>Select Type</option>
                                     <?php
                                     global $exams_type;
@@ -632,8 +642,8 @@ function setSelected($fieldName, $fieldValue) {
                             </div>
                             <div id="level_block" class="detail-row  my-1 !block lg:!grid !w-full">
 
-                                <label class="hidden lg:block" for="level">Level: <span class="text-red-500">*</span></label>
-                                <select class="inputs" id="level" name="level" required <?php if(isset($_POST['regId'])) echo "disabled";?>>
+                                <label class="hidden lg:block " for="level">Level: <span class="text-red-500">*</span></label>
+                                <select class="inputs bg-white text-black dark:bg-gray-800 dark:text-white" id="level" name="level" required <?php if(isset($_POST['regId'])) echo "disabled";?>>
                                     <option value="select" <?php setSelected('level', 'select') ?> disabled selected>Select Level</option>
                                     <?php
                                     global $exams_type;
@@ -677,7 +687,7 @@ function setSelected($fieldName, $fieldValue) {
 
                             <div class="detail-row  my-1 !block lg:!grid !w-full">
                                 <label class="hidden lg:block" for="combination">Subject Combination: <span class="text-red-500">*</span></label>
-                                <select class="inputs" id="combination" name="combination" required>
+                                <select class="inputs bg-white text-black dark:bg-gray-800 dark:text-white" id="combination" name="combination" required>
                                     <option value="select" disabled selected>Select Combination</option>
                                     <?php
                                     while ($userCombination = mysqli_fetch_assoc($combinationList)) { ?>
@@ -701,10 +711,10 @@ function setSelected($fieldName, $fieldValue) {
                     $selectedUnits = (isset($_POST['units']))?$_POST['units']:array();
                     $count = 0;
                     ?>
-                    <div class="w-full lg:w-11/12 mx-auto">
+                    <div class="w-full lg:w-11/12 mx-auto bg-white text-black dark:bg-gray-800 dark:text-white">
                         <div>
-                            <h3 class="font-bold lg:text-xl text-center text-gray-800">Select Units</h3>
-                            <p class="text-center text-gray-500">Select course units you want to apply for the exam. If any course units need to be added, please contact the respective Heads of departments.</p>
+                            <h3 id="selunitetr" class="font-bold lg:text-xl text-center text-gray-800">Select Units</h3>
+                            <p id="selunitetexttr" class="text-center text-gray-500">Select course units you want to apply for the exam. If any course units need to be added, please contact the respective Heads of departments.</p>
                         </div>
                         <form action="exam_reg.php" method="POST" class="mt-10 min-h-[350px] w-11/12 lg:w-3/4 mx-auto flex flex-col gap-y-5">
                             <input type="hidden" name="step" value="2" />
@@ -760,20 +770,21 @@ function setSelected($fieldName, $fieldValue) {
 
                     <div class="mx-auto w-11/12">
                         <div class="text-center">
-                            <h3 class="font-bold lg:text-xl text-gray-800">Payment Slip copies</h3>
-                            <p class="text-gray-500 mt-1">Read and understand the following instructions</p>
+                            <h3 id="psctext01" class="font-bold lg:text-xl text-gray-800 dark:bg-gray-800 dark:text-white">Payment Slip copies</h3>
+                            <p id="psctext02" class="text-gray-500 mt-1 dark:bg-gray-800 dark:text-white">Read and understand the following instructions</p>
                             <ol class="ml-4 lg:ml-7 my-4 list-decimal text-justify space-y-4">
-                                <li>
+                                <li id="psctext03">
                                 Upload the soft copies of payment slip. File type should be <span class="font-semibold">PDF</span> and it should <span class="font-semibold">include both side of the slip</span>.
-                                    <b class="font-bold"><u>NOTE:</u></b><br>
+                            </li>
+                                    <b class="font-bold"><u id="psctext04">NOTE:</u></b><br>
                                     <ul class="ml-4 lg:ml-7 my-1 list-decimal text-justify">
-                                        <li class="font-semibold">Please write the following details in the back side of the Deposit Slip: <br> 1. Full Name  2. Reg. No.   3. Level of Repeat Exam   4. Applied course units</li>
-                                        <li class="font-semibold">You need to include both sides of the Deposit Slip in a single PDF file and attach that PDF file. (Only one PDF file is allowed)</li>
-                                        <li class="font-semibold">Original Deposit Slip should be handover to the Dean's office</li>
+                                        <li id="psctext05" class="font-semibold">Please write the following details in the back side of the Deposit Slip: <br> 1. Full Name  2. Reg. No.   3. Level of Repeat Exam   4. Applied course units</li>
+                                        <li id="psctext06" class="font-semibold">You need to include both sides of the Deposit Slip in a single PDF file and attach that PDF file. (Only one PDF file is allowed)</li>
+                                        <li id="psctext07" class="font-semibold">Original Deposit Slip should be handover to the Dean's office</li>
                                     </ul>
                                 </li>
-                                <li>Those who had submitted Medical Certificate for not sitting the ECEs last year, should also pay Rs. 250/- per course unit and submit both slip copies and senate approval letter.</li>
-                                <li>Original Payment Voucher and senate approval letter (Optional) should be submitted to the Dean's Office </li>
+                                <li id="psctext08">Those who had submitted Medical Certificate for not sitting the ECEs last year, should also pay Rs. 250/- per course unit and submit both slip copies and senate approval letter.</li>
+                                <li id="psctext09">Original Payment Voucher and senate approval letter (Optional) should be submitted to the Dean's Office </li>
                             </ol>
                         </div>
                         <?php if (isset($slip_msg)) : ?>
@@ -800,11 +811,11 @@ function setSelected($fieldName, $fieldValue) {
                             </select>
 
                             <div class="w-full flex gap-x-5 items-center justify-between">
-                                <label for="regno">Payment Slips: </label>
+                                <label id="psctext10" for="regno">Payment Slips: </label>
                                 <input type="file" class="w-full h-full file:cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-[#5465ff] hover:file:bg-violet-100" name="slipFile" accept=".pdf" required>
                             </div>
                             <div class="w-full flex gap-x-5 items-center justify-between">
-                                <label for="regno">Senate approval letter: </label>
+                                <label id="psctext11" for="regno">Senate approval letter: </label>
                                 <input type="file" class="w-full h-full file:cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-[#5465ff] hover:file:bg-violet-100" name="approvalFile" accept=".pdf">
                             </div>
                             <div class="w-full flex items-center justify-around mt-5">
@@ -817,6 +828,7 @@ function setSelected($fieldName, $fieldValue) {
             </div>
         </div>
     </div>
+    <script src="language/script.js"></script>
 </body>
 </html>
 
