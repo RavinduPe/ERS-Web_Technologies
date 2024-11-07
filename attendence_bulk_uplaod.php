@@ -9,6 +9,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config/connect.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
 
 $uploadSuccess = false; // Initialize variable to track upload success
+$errorunit = false; 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['jsonFile'])) {
     // Check if the file was uploaded without errors
     if ($_FILES['jsonFile']['error'] === UPLOAD_ERR_OK) {
@@ -21,7 +22,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['jsonFile'])) {
         if ($data === null) {
             die('Error decoding JSON file');
         }
+        $courseCodePattern = '/^[A-Z]{3}\d{3}[A-Z]\d$/';
+        $atted = false;
+        foreach ($data['students'] as $student) {
+            foreach ($student['cources'] as $course) {
+                if (!preg_match($courseCodePattern, $course['uint_id'])) {
+
+                    if(!$atted){
+                        echo '<h1 class="title mb-2" style="text-align: center;">Add Attendance (Bulk Upload)</h1><br>';
+                        echo '<br><h1 mb-5" style="text-align: left; font-size: 20px;">Please check Registration Number : </h1>';
+
+                    }
+                    $atted = true;
+                    echo '<br><p style="text-right: center; color: grey; font-weight: bold; font-size: 15px;"> ' . $student['regno'] . '</p>';
+                    $errorunit = true; 
+                }
+            }
+        }
+
+        if($errorunit ){
+            
+            echo '<br><p style="color: red; font-weight: bold; font-size: 20px; text-align: center;">Invalid Course Unit Detected!<br><br>Please review the course units regarding above registration numbers and and try uploading again.</p>';
+
+             exit;
+        }
         
+
+
+
+
         // Loop through the "students" data
         foreach ($data['students'] as $student) {
             // echo "Registration Number: " . $student['regno'] . "<br>";
@@ -51,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['jsonFile'])) {
 
 
 <div class="w-[500px] mx-auto flex flex-col items-center gap-4">
-    <h1 class="title mb-2">Add Attendence (Bulk Upload)</h1>
-    <p class="mb-5 text-center tracking-wider font-normal">Please add the relevant column names for the registration number and code units.</p>
+    <h1 class="title mb-2 ">Add Attendence (Bulk Upload)</h1>
+    <p class="mb-5 text-center tracking-wider font-normal text-green-500 ">Please add the relevant column names for the registration number and code units.</p>
     <form action="" method="post" class="w-full flex flex-col items-center gap-5" enctype="multipart/form-data">
         <?php
 
