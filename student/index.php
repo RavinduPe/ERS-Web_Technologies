@@ -74,7 +74,7 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
 
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -93,20 +93,6 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
     <script
     src="https://kit.fontawesome.com/5ce4b972fd.js"
     crossorigin="anonymous"></script>
-
-    <!-- <script>
-        document.onload = function(){
-            let theme = localStorage.getItem('theme');
-            document.documentElement.classList.toggle(theme);
-            console.log(document.documentElement.classList);
-        }
-
-        document.addEventListener("DOMContentLoaded", function(){
-            let theme = localStorage.getItem('theme');
-            document.documentElement.classList.toggle(theme);
-            console.log(document.documentElement.classList);
-        });
-    </script> -->
 
 
 </head>
@@ -128,17 +114,30 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                     <!-- Add more languages as needed -->
                 </select>
                 </li>
-                <!-- <li>
-                <button onclick="toggleDarkMode()">Toggle Dark Mode</button>    
+                <li>
+                <!-- <button onclick="toggleDarkMode()"><span>Dark Mode</span></button>
+
                     <script>
                         function toggleDarkMode() {
-                            localStorage.setItem('theme' , document.documentElement.classList );
-                            document.documentElement.classList.toggle('dark');
-                            console.log("asdsad" , document.documentElement.classList); // Should show "dark" in the console when toggled on
+                            document.documentElement.classList.toggle('dark'); // Toggles dark mode on the <html> element
+                            
+                            // Save the current mode to localStorage
+                            if (document.documentElement.classList.contains('dark')) {
+                                localStorage.setItem('theme', 'dark');
+                            } else {
+                                localStorage.setItem('theme', 'light');
+                            }
                         }
 
-                    </script>
-                </li> -->
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Apply the saved theme on page load
+                            if (localStorage.getItem('theme') === 'dark') {
+                                document.documentElement.classList.add('dark');
+                            } else {
+                                document.documentElement.classList.remove('dark');
+                            }
+                        });
+                    </script> -->
 
 
                 <?php if (!isset($profile_img)) { ?>
