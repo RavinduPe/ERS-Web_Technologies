@@ -1,9 +1,9 @@
 <?php
 
 $hostname = "localhost";
-$username = 'root';
-$password = '';
-$dbname = 'ers_fos_db';
+$username = 'csc210user';
+$password = 'CSC210!';
+$dbname = 'group2';
 
 $con = mysqli_connect($hostname, $username, $password, $dbname);
 
