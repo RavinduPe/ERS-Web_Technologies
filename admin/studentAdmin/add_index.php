@@ -6,9 +6,9 @@ if (!isset($_SESSION['role'])) {
     exit();
 }
 
-include($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/config/connect.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/vendor/autoload.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/admin/subjectAdmin/assignUnits/currentExam.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/group2_v2/ERS-Web_Technologies/config/connect.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/group2_v2/ERS-Web_Technologies/vendor/autoload.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/group2_v2/ERS-Web_Technologies/admin/subjectAdmin/assignUnits/currentExam.php');
 
 if (isset($_POST['upload'])) {
     $exam_id = $_POST['exam_id'];
