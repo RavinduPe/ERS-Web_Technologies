@@ -413,26 +413,26 @@ $districts = ['Select District', 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradh
                                                 $eState = $exam['exam_state'];
                                                 $btnName = ($eState=="closed")?"View":"Edit";
                                                 echo "
-                                                <tr class='h-12 even:bg-blue-50'>
-                                                    <td class=\"\">$date</td>
-                                                    <td class=\"\">$type</td>
-                                                    <td class=\"\">$level</td>
-                                                    <td class=\"\">$semester</td>
-                                                    <td class=\"\">$combination</td>";
+                                                <tr class='h-12 even:bg-blue-50 dark:bg-gray-800 dark:text-white'>
+                                                    <td class=\"dark:bg-gray-800 dark:text-white\">$date</td>
+                                                    <td class=\"dark:bg-gray-800 dark:text-white\">$type</td>
+                                                    <td class=\"dark:bg-gray-800 dark:text-white\">$level</td>
+                                                    <td class=\"dark:bg-gray-800 dark:text-white\">$semester</td>
+                                                    <td class=\"dark:bg-gray-800 dark:text-white\">$combination</td>";
                                                 echo
                                                         ($exreg)?"
 
-                                                    <td>
+                                                    <td class='dark:bg-gray-800 dark:text-white'>
                                                         <button onclick=\"openReg('$regId','$eState')\" class=\"py-1 px-2 border-2 border-blue-500 rounded-md bg-white text-blue-500 hover:bg-blue-500 hover:text-white transition \">
                                                         <i class=\"fa-solid fa-pencil\"></i>
                                                         </button>
                                                     </td>
 
-                                                    <td>
+                                                    <td class='dark:bg-gray-800 dark:text-white'>
                                                         <button onclick=\"openReg('$regId','delete')\" class=\"ml-2 py-1 px-2 border-2 border-red-500 rounded-md bg-white text-red-500 hover:bg-red-500 hover:text-white transition \">
                                                             <i class=\"fa-solid fa-trash-can\"></i>
                                                         </button>
-                                                    </td>":"<td>
+                                                    </td>":"<td class='dark:bg-gray-800 dark:text-white'>
                                                         <button onclick=\"openReg('$regId','$eState')\" class=\"py-1 px-2 border-2 border-blue-500 rounded-md bg-white text-blue-500 hover:bg-blue-500 hover:text-white transition \">
                                                         <i class=\"fa-solid fa-list\"></i>
                                                         </button>
