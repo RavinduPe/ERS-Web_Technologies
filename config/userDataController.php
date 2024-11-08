@@ -4,8 +4,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 //'/group2/ERS-Web_Technologies/vendor/autoload.php'
-require($_SERVER['DOCUMENT_ROOT'] . 'group2_v2/group2/ERS-Web_Technologies/vendor/autoload.php'); // Include PHPMailer autoloader
-require($_SERVER['DOCUMENT_ROOT'] . 'group2_v2/group2/ERS-Web_Technologies/config/connect.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/group2_v2/ERS-Web_Technologies/vendor/autoload.php'); // Include PHPMailer autoloader
+require($_SERVER['DOCUMENT_ROOT'] . '/group2_v2/ERS-Web_Technologies/config/connect.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

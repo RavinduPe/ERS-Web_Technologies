@@ -1,6 +1,6 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'] . '/ERS-Web_Technologies/vendor/autoload.php'); // Include PHPMailer autoloader
+require($_SERVER['DOCUMENT_ROOT'] . '/group2_v2/ERS-Web_Technologies/vendor/autoload.php'); // Include PHPMailer autoloader
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
